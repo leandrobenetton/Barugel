@@ -3,7 +3,6 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ZWM_G
 DROP FUNCTION [dbo].[ZWM_GetGlobalUmCfSp]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[ZWM_GetGlobalUmCfSp]    Script Date: 01/09/2015 15:12:10 ******/
 SET ANSI_NULLS ON
 GO
 
