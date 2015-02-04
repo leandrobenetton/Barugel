@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_PickList">
+         <ServerName>ZWM_PickList</ServerName>
+         <LabelStringID>opick_lists</LabelStringID>
+         <RevisionNo>8</RevisionNo>
+         <RevisionDate>2015-01-21T17:36:31</RevisionDate>
+         <ReplaceFlag>0</ReplaceFlag>
+         <Tables>
+            <Table Name="pick_list" Alias="pic" Type="PRIMARY" />
+         </Tables>
+         <Methods />
+         <Properties>
+            <Property Name="Authorizer" Key="0" Binding="BOUND" Sequence="9">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>authorizer</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CreateDate" Key="0" Binding="BOUND" Sequence="16">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreateDate</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CreatedBy" Key="0" Binding="BOUND" Sequence="14">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreatedBy</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CustNum" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>cust_num</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CustNumType</ColumnDataType>
+                  <DataLength>7</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CustSeq" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>cust_seq</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CustSeqType</ColumnDataType>
+                  <DataType>Long Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="InWorkflow" Key="0" Binding="BOUND" Sequence="18">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>InWorkflow</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+                  <IsRORecordFlag>1</IsRORecordFlag>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="NoteExistsFlag" Key="0" Binding="BOUND" Sequence="13">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>NoteExistsFlag</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="PackLoc" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>pack_loc</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>LocType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="PickDate" Key="0" Binding="BOUND" Sequence="10">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>pick_date</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DateType</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Picker" Key="0" Binding="BOUND" Sequence="8">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>picker</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="PickListId" Key="1" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>pick_list_id</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>PickListIDType</ColumnDataType>
+                  <DataDecimalPos>0</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Printed" Key="0" Binding="BOUND" Sequence="11">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>printed</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ListYesNoType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RecordDate" Key="0" Binding="BOUND" Sequence="17">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RecordDate</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RowPointer" Key="0" Binding="BOUND" Sequence="12">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RowPointer</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RowPointerType</ColumnDataType>
+                  <DataType>GUID</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Status" Key="0" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>status</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>PickListStatusType</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UpdatedBy" Key="0" Binding="BOUND" Sequence="15">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>UpdatedBy</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Whse" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>whse</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>WhseType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmDerRefType" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>Case When (ZwmRefType is null OR ZwmRefType = 'O') then 'Pedido' else 'Transferencia' end</Expression>
+               <PropertyAttributes>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmIdRouteMap" Key="0" Binding="BOUND" Sequence="19">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ZWM_IdRouteMap</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ZwmIdRouteMapType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmRefType" Key="0" Binding="BOUND" Sequence="20">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ZWM_RefType</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RefTypeIJKOPRSTWType</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmToWhse" Key="0" Binding="BOUND" Sequence="21">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ZWM_ToWhse</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>WhseType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLPoItems">
+         <ServerName>ZWM_Vendor</ServerName>
+         <RevisionNo>15</RevisionNo>
+         <RevisionDate>2015-01-22T18:03:01</RevisionDate>
+         <Extends>ZLA_SLPoItems</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables>
+            <Table Name="zwm_imported_grn_mst" Alias="zwm_imported" Type="SECONDARY">
+               <ExplicitJoin>zwm_imported.po_num = po.po_num</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+         </Tables>
+         <Methods>
+            <Method Name="ZWM_GenerateGrnLineSp" Transactional="NO">
+               <StoredProcedure>ZWM_GenerateGrnLineSp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="DateSeq" Sequence="8">
+                     <DBDataType Length="5" Scale="0">SHORT</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="FromPo" Sequence="9">
+                     <DBDataType Length="3" Scale="0">BYTE</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="GrnNum" Sequence="2">
+                     <DBDataType Length="30" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="Infobar" Sequence="10">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PoLine" Sequence="4">
+                     <DBDataType Length="5" Scale="0">SHORT</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PoNum" Sequence="3">
+                     <DBDataType Length="10" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PoRelease" Sequence="5">
+                     <DBDataType Length="5" Scale="0">SHORT</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="QtyShipped" Sequence="6">
+                     <DBDataType Length="19" Scale="8">NUMERIC</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="RcvdDate" Sequence="7">
+                     <DBDataType Scale="0">TIMESTAMP</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="VendNum" Sequence="1">
+                     <DBDataType Length="7" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+            <Method Name="ZWM_GetImportedGrnSp" Transactional="NO">
+               <StoredProcedure>ZWM_GetImportedGrnSp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="Infobar" Sequence="4">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="pGrnNum" Sequence="1">
+                     <DBDataType Length="30" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="pPackNum" Sequence="3">
+                     <DBDataType Length="22" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="pPoNum" Sequence="2">
+                     <DBDataType Length="10" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+            <Method Name="ZWM_ZLA_CLM_PurchaseOrderReceiving" Transactional="NO" Type="CustomLoad">
+               <StoredProcedure>ZWM_ZLA_CLM_PurchaseOrderReceiving</StoredProcedure>
+               <MethodType>1</MethodType>
+               <Parameters>
+                  <Parameter Name="CurWhse" Sequence="1">
+                     <DBDataType Length="4" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="EDueDate" Sequence="4">
+                     <DBDataType Scale="0">TIMESTAMP</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PByGrn" Sequence="7">
+                     <DBDataType Length="3" Scale="0">BYTE</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PGrnLine" Sequence="6">
+                     <DBDataType Length="5" Scale="0">SHORT</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PGrnNum" Sequence="5">
+                     <DBDataType Length="30" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PoitemStatuses" Sequence="11">
+                     <DBDataType Length="2" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PPoLine" Sequence="9">
+                     <DBDataType Length="5" Scale="0">SHORT</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PPoNum" Sequence="8">
+                     <DBDataType Length="10" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PPoRelease" Sequence="10">
+                     <DBDataType Length="5" Scale="0">SHORT</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PVendNum" Sequence="2">
+                     <DBDataType Length="7" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="SDueDate" Sequence="3">
+                     <DBDataType Scale="0">TIMESTAMP</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="TransDate" Sequence="12">
+                     <DBDataType Scale="0">TIMESTAMP</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties>
+                  <Property Sequence="1">DerGrnLine</Property>
+                  <Property Sequence="2">PoNum</Property>
+                  <Property Sequence="3">PoLine</Property>
+                  <Property Sequence="4">PoRelease</Property>
+                  <Property Sequence="5">PoOrderDate</Property>
+                  <Property Sequence="6">DerDefaultLoc</Property>
+                  <Property Sequence="7">UbQtyReceivedConv</Property>
+                  <Property Sequence="8">UbQtyReceived</Property>
+                  <Property Sequence="9">UM</Property>
+                  <Property Sequence="10">UnitMatCost</Property>
+                  <Property Sequence="11">UnitDutyCost</Property>
+                  <Property Sequence="12">UnitFreightCost</Property>
+                  <Property Sequence="13">UnitBrokerageCost</Property>
+                  <Property Sequence="14">UnitInsuranceCost</Property>
+                  <Property Sequence="15">UnitLocFrtCost</Property>
+                  <Property Sequence="16">UnitMatCostConv</Property>
+                  <Property Sequence="17">UnitDutyCostConv</Property>
+                  <Property Sequence="18">UnitFreightCostConv</Property>
+                  <Property Sequence="19">UnitBrokerageCostConv</Property>
+                  <Property Sequence="20">UnitInsuranceCostConv</Property>
+                  <Property Sequence="21">UnitLocFrtCostConv</Property>
+                  <Property Sequence="22">DerLUnitDutyCost</Property>
+                  <Property Sequence="23">DerLUnitFreightCost</Property>
+                  <Property Sequence="24">DerLUnitBrokerageCost</Property>
+                  <Property Sequence="25">DerLUnitInsuranceCost</Property>
+                  <Property Sequence="26">DerLUnitLocFrtCost</Property>
+                  <Property Sequence="27">DerDutyCurrCode</Property>
+                  <Property Sequence="28">DerFreightCurrCode</Property>
+                  <Property Sequence="29">DerBrokerageCurrCode</Property>
+                  <Property Sequence="30">DerInsuranceCurrCode</Property>
+                  <Property Sequence="31">DerLocFrtCurrCode</Property>
+                  <Property Sequence="32">DerDutyCurrCodeDesc</Property>
+                  <Property Sequence="33">DerFreightCurrCodeDesc</Property>
+                  <Property Sequence="34">DerBrokerageCurrCodeDesc</Property>
+                  <Property Sequence="35">DerInsuranceCurrCodeDesc</Property>
+                  <Property Sequence="36">DerLocFrtCurrCodeDesc</Property>
+                  <Property Sequence="37">DerDutyRate</Property>
+                  <Property Sequence="38">DerFreightRate</Property>
+                  <Property Sequence="39">DerBrokerageRate</Property>
+                  <Property Sequence="40">DerInsuranceRate</Property>
+                  <Property Sequence="41">DerLocFrtRate</Property>
+                  <Property Sequence="42">EcCode</Property>
+                  <Property Sequence="43">PoVendNum</Property>
+                  <Property Sequence="44">Item</Property>
+                  <Property Sequence="45">ItmDescription</Property>
+                  <Property Sequence="46">ItmSerialTracked</Property>
+                  <Property Sequence="47">ItmSerialPrefix</Property>
+                  <Property Sequence="48">ItmLotTracked</Property>
+                  <Property Sequence="49">QtyReceived</Property>
+                  <Property Sequence="50">QtyRejected</Property>
+                  <Property Sequence="51">QtyOrdered</Property>
+                  <Property Sequence="52">QtyVoucher</Property>
+                  <Property Sequence="53">DueDate</Property>
+                  <Property Sequence="54">Stat</Property>
+                  <Property Sequence="55">Whse</Property>
+                  <Property Sequence="56">DerItemExists</Property>
+                  <Property Sequence="57">DerGrnNum</Property>
+                  <Property Sequence="58">RcvdDate</Property>
+                  <Property Sequence="59">DerNeedsPostReceiveWIP</Property>
+                  <Property Sequence="60">RefType</Property>
+                  <Property Sequence="61">RefNum</Property>
+                  <Property Sequence="62">RefLineSuf</Property>
+                  <Property Sequence="63">RefRelease</Property>
+                  <Property Sequence="64">DerRefDescription</Property>
+                  <Property Sequence="65">RowPointer</Property>
+                  <Property Sequence="66">ItemCost</Property>
+                  <Property Sequence="67">ItemCostConv</Property>
+                  <Property Sequence="68">QtyOrderedConv</Property>
+                  <Property Sequence="69">VendItem</Property>
+                  <Property Sequence="70">ItmTaxFreeMatl</Property>
+                  <Property Sequence="71">PoContainsOnlyTaxFreeMatls</Property>
+                  <Property Sequence="72">ItemPOToleranceOver</Property>
+                  <Property Sequence="73">ItemPOToleranceUnder</Property>
+                  <Property Sequence="74">CurrCode</Property>
+                  <Property Sequence="75">PoBuilderPoOrigSite</Property>
+                  <Property Sequence="76">PoBuilderPoNum</Property>
+                  <Property Sequence="77">POIncludeTaxInCost</Property>
+                  <Property Sequence="78">PoExchRate</Property>
+                  <Property Sequence="79">ZwmPackNumber</Property>
+               </ResultSetProperties>
+            </Method>
+         </Methods>
+         <Properties>
+            <Property Name="RefLineSuf" Key="0" Binding="BOUND" Sequence="15">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ref_line_suf</BoundToColumn>
+               <ColumnTableAlias>poi</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CoLineSuffixProjTaskTrnLineType</ColumnDataType>
+                  <DataType>Short Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RefNum" Key="0" Binding="BOUND" Sequence="14">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ref_num</BoundToColumn>
+               <ColumnTableAlias>poi</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CoJobProjTrnNumType</ColumnDataType>
+                  <DataLength>10</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RefRelease" Key="0" Binding="BOUND" Sequence="16">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ref_release</BoundToColumn>
+               <ColumnTableAlias>poi</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CoReleaseOperNumType</ColumnDataType>
+                  <DataType>Short Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmBarCode" Key="0" Binding="BOUND" Sequence="209">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ZWM_BarCode</BoundToColumn>
+               <ColumnTableAlias>itm</ColumnTableAlias>
+               <PropertyAttributes>
+                  <DataLength>40</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmGrnPrefix" Key="0" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>grn_prefix</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>GrnPrefixType</ColumnDataType>
+                  <DataLength>7</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmPackNumber" Binding="UNBOUND" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <PropertyAttributes>
+                  <DataLength>22</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmQtyShipped" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_shipped</BoundToColumn>
+               <ColumnTableAlias>zwm_imported</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitNoNegType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmShippedQty" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>QtyOrdered - QtyReceived</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

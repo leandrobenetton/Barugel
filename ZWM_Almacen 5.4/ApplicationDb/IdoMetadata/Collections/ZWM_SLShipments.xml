@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLShipments">
+         <ServerName>ZWM_Customer</ServerName>
+         <RevisionNo>17</RevisionNo>
+         <RevisionDate>2015-01-07T17:49:56</RevisionDate>
+         <Extends>SLShipments</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables />
+         <Methods>
+            <Method Name="ZWM_GetShipmentListSp" Transactional="NO" Type="CustomLoad">
+               <StoredProcedure>ZWM_GetShipmentListSp</StoredProcedure>
+               <MethodType>1</MethodType>
+               <Parameters>
+                  <Parameter Name="InfoBar" Sequence="2">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PickListId" Sequence="1">
+                     <DBDataType Length="19" Scale="0">NUMERIC</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+            <Method Name="ZWM_TransferOrderShipConfirmationSp" Transactional="NO">
+               <StoredProcedure>ZWM_TransferOrderShipConfirmationSp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="Infobar" Sequence="2">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="ShipmentID" Sequence="1">
+                     <DBDataType Length="19" Scale="0">NUMERIC</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+         </Methods>
+         <Properties>
+            <Property Name="ZlaDoNum" Key="0" Binding="BOUND" Sequence="130">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>zla_do_num</BoundToColumn>
+               <ColumnTableAlias>shi</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DoNumType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZlaShipNum" Key="0" Binding="BOUND" Sequence="131">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>zla_ship_num</BoundToColumn>
+               <ColumnTableAlias>shi</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DoNumType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmDeliveredDate" Key="0" Binding="BOUND" Sequence="125">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ZWM_DeliveredDate</BoundToColumn>
+               <ColumnTableAlias>shi</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmRouteSheet" Binding="DERIVED" Sequence="0">
+               <Description>Hoja de Ruta de un pick_list a partir de un pick_list_id de shipment_line_mst</Description>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>(select ZWM_IdRouteMap from pick_list_mst where pick_list_id = (select distinct(pick_list_id) from shipment_line_mst s where s.shipment_id = ShipmentId))</Expression>
+               <PropertyAttributes>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

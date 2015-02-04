@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_Parms">
+         <ServerName>ZWM_Parms</ServerName>
+         <RevisionNo>13</RevisionNo>
+         <RevisionDate>2014-12-09T11:56:03</RevisionDate>
+         <ReplaceFlag>0</ReplaceFlag>
+         <Tables>
+            <Table Name="zwm_parms_mst" Alias="zwmparms" Type="PRIMARY" />
+         </Tables>
+         <Methods />
+         <Properties>
+            <Property Name="CreateDate" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreateDate</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CreatedBy" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreatedBy</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="grn_prefix" Key="0" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>grn_prefix</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>GrnPrefixType</ColumnDataType>
+                  <DataLength>7</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="InWorkflow" Key="0" Binding="BOUND" Sequence="10">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>InWorkflow</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+                  <IsRORecordFlag>1</IsRORecordFlag>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="loc" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>loc</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>LocType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="NoteExistsFlag" Key="0" Binding="BOUND" Sequence="9">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>NoteExistsFlag</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="parm_key" Key="0" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>parm_key</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ParmKeyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="PrefixTransferPicklist" Key="0" Binding="BOUND" Sequence="21">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>prefix_transfer_picklist</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AlphaPrefixType</ColumnDataType>
+                  <DataLength>7</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RecordDate" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RecordDate</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Reserve_pct" Key="0" Binding="BOUND" Sequence="17">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>reserve_pct</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>MarkupType</ColumnDataType>
+                  <DataDecimalPos>3</DataDecimalPos>
+                  <DataLength>8</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RowPointer" Key="0" Binding="BOUND" Sequence="8">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RowPointer</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RowPointerType</ColumnDataType>
+                  <DataType>GUID</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ShipViaPicklist" Key="0" Binding="BOUND" Sequence="19">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ship_via_picklist</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ShipCodeType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ShipViaTransferPicklist" Key="0" Binding="BOUND" Sequence="20">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ship_via_transfer_picklist</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ShipCodeType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="site_ref" Key="1" Binding="BOUND" Sequence="1">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>site_ref</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>SiteType</ColumnDataType>
+                  <DataLength>8</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="TransferLoc" Key="0" Binding="BOUND" Sequence="22">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>transfer_loc</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>LocType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UMDimensionStock1" Key="0" Binding="BOUND" Sequence="12">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>um_dimension_stock1</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UMVol" Key="0" Binding="BOUND" Sequence="8">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>um_vol</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UMWeight" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>um_weight</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UpdatedBy" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>UpdatedBy</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="VolumetricFactor" Key="0" Binding="BOUND" Sequence="9">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>volumetric_factor</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ItemWeightType</ColumnDataType>
+                  <DataDecimalPos>5</DataDecimalPos>
+                  <DataLength>11</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

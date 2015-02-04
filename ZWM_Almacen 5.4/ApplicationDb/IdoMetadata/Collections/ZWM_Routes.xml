@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <PropertyClasses>
+      <PropertyClassDef Name="Description">
+         <AccessAs>Core</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>DescriptionType</ColumnDataType>
+            <DataLength>40</DataLength>
+            <DataType>String</DataType>
+            <LabelStringID>sDescription</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="ZWM_RouteBase">
+         <PropertyAttributes>
+            <ColumnDataType>ZWM_RouteType</ColumnDataType>
+            <DataLength>15</DataLength>
+            <DataType>String</DataType>
+            <LabelStringID>sZWM_Route</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+   </PropertyClasses>
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_Routes">
+         <ServerName>ZWM_Codes</ServerName>
+         <LabelStringID>ZWM_Routes</LabelStringID>
+         <RevisionNo>6</RevisionNo>
+         <RevisionDate>2014-10-08T14:17:53</RevisionDate>
+         <ReplaceFlag>0</ReplaceFlag>
+         <Tables>
+            <Table Name="zwm_route" Alias="zrte" Type="PRIMARY" />
+         </Tables>
+         <Methods />
+         <Properties>
+            <Property Name="CreateDate" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreateDate</BoundToColumn>
+               <ColumnTableAlias>zrte</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CreatedBy" Key="0" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreatedBy</BoundToColumn>
+               <ColumnTableAlias>zrte</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Description" Key="0" Binding="BOUND" Sequence="2">
+               <PropertyClass>Description</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>description</BoundToColumn>
+               <ColumnTableAlias>zrte</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsRequired>0</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="InWorkflow" Key="0" Binding="BOUND" Sequence="9">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>InWorkflow</BoundToColumn>
+               <ColumnTableAlias>zrte</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+                  <IsRORecordFlag>1</IsRORecordFlag>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="NoteExistsFlag" Key="0" Binding="BOUND" Sequence="8">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>NoteExistsFlag</BoundToColumn>
+               <ColumnTableAlias>zrte</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RecordDate" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RecordDate</BoundToColumn>
+               <ColumnTableAlias>zrte</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Route" Key="0" Binding="BOUND" Sequence="1">
+               <PropertyClass>ZWM_RouteBase</PropertyClass>
+               <PseudoKeyFlag>1</PseudoKeyFlag>
+               <BoundToColumn>route</BoundToColumn>
+               <ColumnTableAlias>zrte</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RowPointer" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RowPointer</BoundToColumn>
+               <ColumnTableAlias>zrte</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RowPointerType</ColumnDataType>
+                  <DataType>GUID</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UpdatedBy" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>UpdatedBy</BoundToColumn>
+               <ColumnTableAlias>zrte</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

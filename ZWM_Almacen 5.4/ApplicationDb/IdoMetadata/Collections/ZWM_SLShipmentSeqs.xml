@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLShipmentSeqs">
+         <ServerName>ZWM_Customer</ServerName>
+         <RevisionNo>6</RevisionNo>
+         <RevisionDate>2015-01-08T18:00:03</RevisionDate>
+         <Extends>SLShipmentSeqs</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables />
+         <Methods>
+            <Method Name="ZWM_ShipmentConformity" Transactional="NO">
+               <StoredProcedure>ZWM_ShipmentConformitySp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="Infobar" Sequence="2">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="ShipmentId" Sequence="1">
+                     <DBDataType Length="19" Scale="0">NUMERIC</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+            <Method Name="ZWM_ShipmentConformityTransferSp" Transactional="NO">
+               <StoredProcedure>ZWM_ShipmentConformityTransferSp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="Infobar" Sequence="2">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="ShipmentId" Sequence="1">
+                     <DBDataType Length="19" Scale="0">NUMERIC</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+         </Methods>
+         <Properties />
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

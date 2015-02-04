@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLPickListRefs">
+         <ServerName>ZWM_Customer</ServerName>
+         <RevisionNo>3</RevisionNo>
+         <RevisionDate>2015-01-07T10:21:07</RevisionDate>
+         <Extends>SLPickListRefs</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables>
+            <Table Name="item" Alias="ite" Type="SECONDARY">
+               <ExplicitJoin>ite.item = COALESCE(coi.item, cit.item, trn.item)</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="trnitem" Alias="trn" Type="SECONDARY">
+               <ExplicitJoin>trn.trn_num = ref.ref_num AND trn.trn_line = ref.ref_line_suf</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+         </Tables>
+         <Methods />
+         <Properties>
+            <Property Name="ZwmItmSerialTracked" Key="0" Binding="BOUND" Sequence="98">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>serial_tracked</BoundToColumn>
+               <ColumnTableAlias>ite</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ListYesNoType</ColumnDataType>
+                  <DataType>Byte</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

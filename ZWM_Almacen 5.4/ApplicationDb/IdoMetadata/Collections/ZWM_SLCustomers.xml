@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLCustomers">
+         <ServerName>ZWM_Customer</ServerName>
+         <RevisionNo>3</RevisionNo>
+         <RevisionDate>2014-10-27T17:45:29</RevisionDate>
+         <Extends>ZLA_SLCustomers</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables />
+         <Methods />
+         <Properties>
+            <Property Name="ZWM_Route" Key="0" Binding="BOUND" Sequence="45">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>zwm_route</BoundToColumn>
+               <ColumnTableAlias>adr</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>varchar</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLPickWorkbenchs">
+         <ServerName>ZWM_Customer</ServerName>
+         <RevisionNo>47</RevisionNo>
+         <RevisionDate>2015-01-23T09:48:33</RevisionDate>
+         <Extends>SLPickWorkbenchs</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables>
+            <Table Name="custaddr" Alias="adrA" Type="SECONDARY">
+               <ExplicitJoin>adrA.cust_num = co.cust_num and adrA.cust_seq = ISNULL(coi.cust_seq,co.cust_seq)</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="famcode" Alias="fam" Type="SECONDARY">
+               <ExplicitJoin>itm.family_code = fam.family_code</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="prodcode" Alias="pro" Type="SECONDARY">
+               <ExplicitJoin>itm.product_code = pro.product_code</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="shipcode" Alias="shipcode" Type="SECONDARY">
+               <ExplicitJoin>shipcode.ship_code = ISNULL(coi.zwm_ship_code , co.ship_code)</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="zwm_parms" Alias="zwm_parms" Type="SECONDARY">
+               <ExplicitJoin>zwm_parms.parm_key = 0</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+         </Tables>
+         <Methods>
+            <Method Name="ZWM_GeneratePickListSp" Transactional="NO">
+               <StoredProcedure>ZWM_GeneratePickListSp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="BGTaskProcessId1" Sequence="5">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="BGTaskProcessId2" Sequence="6">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="InfoBar" Sequence="7">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PPackLoc" Sequence="3">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PPicker" Sequence="2">
+                     <DBDataType Length="30" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="ProcessId" Sequence="1">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="RouteId" Sequence="4">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+            <Method Name="ZWM_GetRouteSheetSp" Transactional="NO" Type="CustomLoad">
+               <StoredProcedure>ZWM_GetRouteSheetSp</StoredProcedure>
+               <MethodType>1</MethodType>
+               <Parameters>
+                  <Parameter Name="Infobar" Sequence="3">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="RefType" Sequence="2">
+                     <DBDataType Length="1" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="RouteId" Sequence="1">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties>
+                  <Property Sequence="1">ZwmPickListId</Property>
+                  <Property Sequence="2">ZwmRefType</Property>
+               </ResultSetProperties>
+            </Method>
+            <Method Name="ZWM_PickListID" Transactional="NO">
+               <StoredProcedure>ZWM_PickListID</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="IDPickList" Sequence="1">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+            <Method Name="ZWM_PickWorkBenchPredisplaySp" Transactional="NO">
+               <StoredProcedure>ZWM_PickWorkBenchPredisplaySp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="ShipCode" Sequence="1">
+                     <DBDataType Length="4" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+         </Methods>
+         <Properties>
+            <Property Name="FamilyCode" Key="0" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>family_code</BoundToColumn>
+               <ColumnTableAlias>fam</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FamilyCodeType</ColumnDataType>
+                  <DataLength>10</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ProductCode" Key="0" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>product_code</BoundToColumn>
+               <ColumnTableAlias>pro</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ProductCodeType</ColumnDataType>
+                  <DataLength>10</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ShipCode" Key="0" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ship_code</BoundToColumn>
+               <ColumnTableAlias>shipcode</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ShipCodeType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ShipCodeDesc" Key="0" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>description</BoundToColumn>
+               <ColumnTableAlias>shipcode</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DescriptionType</ColumnDataType>
+                  <DataLength>40</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmCustAdr1" Key="0" Binding="BOUND" Sequence="13">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>addr##1</BoundToColumn>
+               <ColumnTableAlias>adrA</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AddressType</ColumnDataType>
+                  <DataLength>50</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmCustAdr2" Key="0" Binding="BOUND" Sequence="14">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>addr##2</BoundToColumn>
+               <ColumnTableAlias>adrA</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AddressType</ColumnDataType>
+                  <DataLength>50</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmCustAdr3" Key="0" Binding="BOUND" Sequence="15">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>addr##3</BoundToColumn>
+               <ColumnTableAlias>adrA</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AddressType</ColumnDataType>
+                  <DataLength>50</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmCustAdr4" Key="0" Binding="BOUND" Sequence="16">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>addr##4</BoundToColumn>
+               <ColumnTableAlias>adrA</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AddressType</ColumnDataType>
+                  <DataLength>50</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmCustCity" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>city</BoundToColumn>
+               <ColumnTableAlias>adrA</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CityType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmCustCountry" Key="0" Binding="BOUND" Sequence="9">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>country</BoundToColumn>
+               <ColumnTableAlias>adrA</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CountryType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmCustState" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>state</BoundToColumn>
+               <ColumnTableAlias>adrA</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>StateType</ColumnDataType>
+                  <DataLength>5</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmIdRouteMap" Key="0" Binding="BOUND" Sequence="19">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ZWM_IdRouteMap</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ZwmIdRouteMapType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmObs" Key="0" Binding="BOUND" Sequence="123">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>zrt_obs</BoundToColumn>
+               <ColumnTableAlias>coi</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>varchar</ColumnDataType>
+                  <DataLength>500</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmPickListId" Key="0" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>pick_list_id</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>PickListIDType</ColumnDataType>
+                  <DataDecimalPos>0</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmRefType" Key="0" Binding="BOUND" Sequence="20">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ZWM_RefType</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RefTypeIJKOPRSTWType</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmRoute" Key="0" Binding="BOUND" Sequence="45">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>zwm_route</BoundToColumn>
+               <ColumnTableAlias>adrA</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>varchar</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmShipViaPicklist" Key="0" Binding="BOUND" Sequence="19">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ship_via_picklist</BoundToColumn>
+               <ColumnTableAlias>zwm_parms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ShipCodeType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmTransport" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>transport</BoundToColumn>
+               <ColumnTableAlias>shipcode</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>TransportType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmUMVol" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>um_vol</BoundToColumn>
+               <ColumnTableAlias>zwm_parms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmUmWeight" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>um_weight</BoundToColumn>
+               <ColumnTableAlias>zwm_parms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmUnitWeight" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>dbo.ZWM_UnitWeight(Item) * DerPickQty</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>9</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmVolume" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>dbo.ZWM_VolumetricVol(Item) * DerPickQty</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>9</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmVolumetricWeight" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>dbo.ZWM_VolumetricWeight(Item) * DerPickQty</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>9</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

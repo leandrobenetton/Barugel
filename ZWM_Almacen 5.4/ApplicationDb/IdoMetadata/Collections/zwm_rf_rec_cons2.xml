@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="zwm_rf_rec_cons2">
+         <ServerName>ZWM_RFRecCons</ServerName>
+         <LabelStringID>ozwm_rf_rec_cons2_msts</LabelStringID>
+         <RevisionNo>9</RevisionNo>
+         <RevisionDate>2014-10-02T11:58:21</RevisionDate>
+         <ReplaceFlag>0</ReplaceFlag>
+         <Tables>
+            <Table Name="zwm_tmp_rf_rec_cons2_mst" Alias="zwmrfrec" Type="PRIMARY" />
+         </Tables>
+         <Methods />
+         <Properties>
+            <Property Name="CharAttribute1" Key="0" Binding="BOUND" Sequence="27">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>char_attribute1</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>20</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CharAttribute10" Key="0" Binding="BOUND" Sequence="36">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>char_attribute10</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>20</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CharAttribute2" Key="0" Binding="BOUND" Sequence="28">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>char_attribute2</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>20</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CharAttribute3" Key="0" Binding="BOUND" Sequence="29">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>char_attribute3</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>20</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CharAttribute4" Key="0" Binding="BOUND" Sequence="20">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute4</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CharAttribute5" Key="0" Binding="BOUND" Sequence="31">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>char_attribute5</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>20</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CharAttribute6" Key="0" Binding="BOUND" Sequence="32">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>char_attribute6</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>20</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CharAttribute7" Key="0" Binding="BOUND" Sequence="33">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>char_attribute7</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>20</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CharAttribute8" Key="0" Binding="BOUND" Sequence="34">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>char_attribute8</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>20</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CharAttribute9" Key="0" Binding="BOUND" Sequence="35">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>char_attribute9</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>20</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CoLine" Key="0" Binding="BOUND" Sequence="15">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>co_line</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>smallint</ColumnDataType>
+                  <DataType>Short Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ContNumber" Key="0" Binding="BOUND" Sequence="9">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>cont_number</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ZwmContNumberType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CoNum" Key="0" Binding="BOUND" Sequence="14">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>co_num</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CoNumType</ColumnDataType>
+                  <DataLength>10</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CoRelease" Key="0" Binding="BOUND" Sequence="16">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>co_release</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>smallint</ColumnDataType>
+                  <DataType>Short Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute1" Key="0" Binding="BOUND" Sequence="17">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute1</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute10" Key="0" Binding="BOUND" Sequence="26">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute10</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute2" Key="0" Binding="BOUND" Sequence="18">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute2</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute3" Key="0" Binding="BOUND" Sequence="19">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute3</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute4" Key="0" Binding="BOUND" Sequence="20">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute4</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute5" Key="0" Binding="BOUND" Sequence="21">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute5</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute6" Key="0" Binding="BOUND" Sequence="22">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute6</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute7" Key="0" Binding="BOUND" Sequence="23">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute7</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute8" Key="0" Binding="BOUND" Sequence="24">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute8</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DeciAttribute9" Key="0" Binding="BOUND" Sequence="25">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>deci_attribute9</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>decimal</ColumnDataType>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>10</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Employee" Key="0" Binding="BOUND" Sequence="37">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>employee</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>EmpNumType</ColumnDataType>
+                  <DataLength>7</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Id" Key="1" Binding="BOUND" Sequence="1">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>id</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ZwmIdRFConsType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Item" Key="2" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>item</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ItemType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Loc" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>loc</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>LocType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Lot" Key="0" Binding="BOUND" Sequence="8">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>lot</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>LotType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyUmStd" Key="0" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_um_std</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyUMStk1" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_um_stk1</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyUMStk1Conv" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_um_stk1_conv</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyUMStk2" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_um_stk2</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyUMStk2Conv" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_um_stk2_conv</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RowPointer" Key="1" Binding="BOUND" Sequence="13">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RowPointer</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RowPointer</ColumnDataType>
+                  <DataType>GUID</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Status" Key="0" Binding="BOUND" Sequence="38">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>status</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Usuario" Key="0" Binding="BOUND" Sequence="12">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>user_trans</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ZwmIdRFConsType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Whse" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>whse</BoundToColumn>
+               <ColumnTableAlias>zwmrfrec</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>WhseType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

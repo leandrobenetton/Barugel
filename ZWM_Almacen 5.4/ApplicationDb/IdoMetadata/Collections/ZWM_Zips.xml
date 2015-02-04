@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <PropertyClasses>
+      <PropertyClassDef Name="PostalCode">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>PostalCodeType</ColumnDataType>
+            <DataLength>10</DataLength>
+            <DataType>String</DataType>
+            <LabelStringID>sPostal/ZIP</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="QtyUnit">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>QtyUnitType</ColumnDataType>
+            <DataDecimalPos>8</DataDecimalPos>
+            <DataLength>19</DataLength>
+            <DataType>Decimal</DataType>
+            <DefaultValue>0</DefaultValue>
+            <DisplayDecimalPos>3</DisplayDecimalPos>
+            <JustifyFormat>R</JustifyFormat>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="QtyUnitNoNeg">
+         <BaseClass>QtyUnit</BaseClass>
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>QtyUnitNoNegType</ColumnDataType>
+         </PropertyAttributes>
+      </PropertyClassDef>
+   </PropertyClasses>
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_Zips">
+         <ServerName>ZWM_Codes</ServerName>
+         <LabelStringID>oZWM_Zips</LabelStringID>
+         <RevisionNo>5</RevisionNo>
+         <RevisionDate>2014-10-10T11:35:51</RevisionDate>
+         <ReplaceFlag>0</ReplaceFlag>
+         <Tables>
+            <Table Name="zwm_zip" Alias="zip" Type="PRIMARY" />
+         </Tables>
+         <Methods />
+         <Properties>
+            <Property Name="CreateDate" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreateDate</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CreatedBy" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreatedBy</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Distance" Key="0" Binding="BOUND" Sequence="3">
+               <PropertyClass>QtyUnitNoNeg</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>distance</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsRequired>0</IsRequired>
+                  <LabelStringID>sZWM_Distance</LabelStringID>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="InWorkflow" Key="0" Binding="BOUND" Sequence="10">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>InWorkflow</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+                  <IsRORecordFlag>1</IsRORecordFlag>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="NoteExistsFlag" Key="0" Binding="BOUND" Sequence="9">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>NoteExistsFlag</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RecordDate" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RecordDate</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Route" Key="0" Binding="BOUND" Sequence="2">
+               <PropertyClass>ZWM_Route</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>route</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RowPointer" Key="0" Binding="BOUND" Sequence="8">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RowPointer</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RowPointerType</ColumnDataType>
+                  <DataType>GUID</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UpdatedBy" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>UpdatedBy</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Zip" Key="0" Binding="BOUND" Sequence="1">
+               <PropertyClass>PostalCode</PropertyClass>
+               <PseudoKeyFlag>1</PseudoKeyFlag>
+               <BoundToColumn>zip</BoundToColumn>
+               <ColumnTableAlias>zip</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZWM_ZipAddrs" Binding="SUBCOLLECTION" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Subcollection>ZWM_ZipAddrs</Subcollection>
+               <SubcollectionFilter>Zip=Zip</SubcollectionFilter>
+               <SubstitutionProperties />
+               <PropertyAttributes />
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

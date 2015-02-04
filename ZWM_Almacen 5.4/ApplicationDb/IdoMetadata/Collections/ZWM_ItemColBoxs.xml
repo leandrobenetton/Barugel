@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <PropertyClasses>
+      <PropertyClassDef Name="Description">
+         <AccessAs>Core</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>DescriptionType</ColumnDataType>
+            <DataLength>40</DataLength>
+            <DataType>String</DataType>
+            <LabelStringID>sDescription</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="Item">
+         <BaseClass>ItemBase</BaseClass>
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <DomainIDOName>SLItems</DomainIDOName>
+            <DomainListProperties>Description</DomainListProperties>
+            <DomainProperty>Item</DomainProperty>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="ItemBase">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>ItemType</ColumnDataType>
+            <DataLength>30</DataLength>
+            <DataType>String</DataType>
+            <LabelStringID>sItem</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="Loc">
+         <BaseClass>LocBase</BaseClass>
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <DomainIDOName>SLLocations</DomainIDOName>
+            <DomainListProperties>Description</DomainListProperties>
+            <DomainProperty>Loc</DomainProperty>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="LocBase">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>LocType</ColumnDataType>
+            <DataLength>15</DataLength>
+            <DataType>String</DataType>
+            <LabelStringID>sLocation</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="Name">
+         <AccessAs>Core</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>NameType</ColumnDataType>
+            <DataLength>60</DataLength>
+            <DataType>String</DataType>
+            <LabelStringID>sName</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="QtyUnit">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>QtyUnitType</ColumnDataType>
+            <DataDecimalPos>8</DataDecimalPos>
+            <DataLength>19</DataLength>
+            <DataType>Decimal</DataType>
+            <DefaultValue>0</DefaultValue>
+            <DisplayDecimalPos>3</DisplayDecimalPos>
+            <JustifyFormat>R</JustifyFormat>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="Whse">
+         <BaseClass>WhseBase</BaseClass>
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <DomainIDOName>SLWhses</DomainIDOName>
+            <DomainListProperties>Name</DomainListProperties>
+            <DomainProperty>Whse</DomainProperty>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="WhseBase">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>WhseType</ColumnDataType>
+            <DataLength>4</DataLength>
+            <DataType>String</DataType>
+            <LabelStringID>sWarehouse</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+   </PropertyClasses>
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_ItemColBoxs">
+         <ServerName>ZWM_Codes</ServerName>
+         <LabelStringID>oZWM_ItemColBoxs</LabelStringID>
+         <RevisionNo>6</RevisionNo>
+         <RevisionDate>2015-01-14T16:25:16</RevisionDate>
+         <ReplaceFlag>0</ReplaceFlag>
+         <Tables>
+            <Table Name="zwm_item_col_box" Alias="icb" Type="PRIMARY" />
+            <Table Name="item" Alias="item" Type="SECONDARY">
+               <ExplicitJoin>item.item = icb.item</ExplicitJoin>
+               <JoinType>INNER</JoinType>
+            </Table>
+            <Table Name="location" Alias="loc" Type="SECONDARY">
+               <ExplicitJoin>loc.loc = icb.loc</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="whse" Alias="whs" Type="SECONDARY">
+               <ExplicitJoin>whs.whse = icb.whse</ExplicitJoin>
+               <JoinType>INNER</JoinType>
+            </Table>
+         </Tables>
+         <Methods />
+         <Properties>
+            <Property Name="CreateDate" Key="0" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreateDate</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CreatedBy" Key="0" Binding="BOUND" Sequence="1">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreatedBy</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="InWorkflow" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>InWorkflow</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+                  <IsRORecordFlag>1</IsRORecordFlag>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Item" Key="0" Binding="BOUND" Sequence="9">
+               <PropertyClass>Item</PropertyClass>
+               <PseudoKeyFlag>1</PseudoKeyFlag>
+               <BoundToColumn>item</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ItemDescription" Key="0" Binding="BOUND" Sequence="13">
+               <PropertyClass>Description</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>description</BoundToColumn>
+               <ColumnTableAlias>item</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Loc" Key="0" Binding="BOUND" Sequence="11">
+               <PropertyClass>Loc</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>loc</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsRequired>0</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="LocDescription" Key="0" Binding="BOUND" Sequence="15">
+               <PropertyClass>Description</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>description</BoundToColumn>
+               <ColumnTableAlias>loc</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="MinQty" Key="0" Binding="BOUND" Sequence="6">
+               <PropertyClass>QtyUnit</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>min_qty</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+                  <LabelStringID>sZWM_MinQty</LabelStringID>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="NoteExistsFlag" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>NoteExistsFlag</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RecordDate" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RecordDate</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ReorderQty" Key="0" Binding="BOUND" Sequence="12">
+               <PropertyClass>QtyUnit</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>reorder_qty</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <LabelStringID>sZWM_ReorderQty</LabelStringID>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RowPointer" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RowPointer</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RowPointerType</ColumnDataType>
+                  <DataType>GUID</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UpdatedBy" Key="0" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>UpdatedBy</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Whse" Key="0" Binding="BOUND" Sequence="10">
+               <PropertyClass>Whse</PropertyClass>
+               <PseudoKeyFlag>1</PseudoKeyFlag>
+               <BoundToColumn>whse</BoundToColumn>
+               <ColumnTableAlias>icb</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhseName" Key="0" Binding="BOUND" Sequence="14">
+               <PropertyClass>Name</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>name</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

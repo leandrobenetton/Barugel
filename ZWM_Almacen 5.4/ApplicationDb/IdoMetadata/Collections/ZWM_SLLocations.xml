@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLLocations">
+         <ServerName>ZWM_Material</ServerName>
+         <RevisionNo>2</RevisionNo>
+         <RevisionDate>2014-10-01T16:23:20</RevisionDate>
+         <Extends>SLLocations</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables>
+            <Table Name="zwm_parms" Alias="zwm" Type="SECONDARY">
+               <ExplicitJoin>zwm.parm_key = 0</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+         </Tables>
+         <Methods />
+         <Properties>
+            <Property Name="ZwmUMDimensionStock1" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>um_dimension_stock1</BoundToColumn>
+               <ColumnTableAlias>zwm</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmUMVol" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>um_vol</BoundToColumn>
+               <ColumnTableAlias>zwm</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

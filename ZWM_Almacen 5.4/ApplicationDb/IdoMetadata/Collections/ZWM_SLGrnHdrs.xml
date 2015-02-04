@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLGrnHdrs">
+         <ServerName>ZWM_Vendor</ServerName>
+         <RevisionNo>2</RevisionNo>
+         <RevisionDate>2014-11-21T12:38:01</RevisionDate>
+         <Extends>SLGrnHdrs</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables />
+         <Methods>
+            <Method Name="ZWM_GenerateGRNnumSp" Transactional="NO">
+               <StoredProcedure>ZWM_GenerateGRNnumSp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="GRNnum" Sequence="1">
+                     <DBDataType Length="30" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+         </Methods>
+         <Properties />
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

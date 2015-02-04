@@ -1,0 +1,1406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <PropertyClasses>
+      <PropertyClassDef Name="BooleanQuery">
+         <Description>Used to allow True/False inlines to be associated with column for query forms</Description>
+         <AccessAs>Core</AccessAs>
+         <PropertyAttributes>
+            <DataLength>1</DataLength>
+            <DataType>Byte</DataType>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="PickGroup">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>PickGroupType</ColumnDataType>
+            <DataType>Short Integer</DataType>
+            <LabelStringID>sGroup</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="PickListId">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>PickListIDType</ColumnDataType>
+            <DataLength>19</DataLength>
+            <DataType>Decimal</DataType>
+            <JustifyFormat>R</JustifyFormat>
+            <LabelStringID>sPickList</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="PickListStatus">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>PickListStatusType</ColumnDataType>
+            <DataLength>1</DataLength>
+            <DataType>String</DataType>
+            <LabelStringID>sStatus</LabelStringID>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="QtyUnit">
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>QtyUnitType</ColumnDataType>
+            <DataDecimalPos>8</DataDecimalPos>
+            <DataLength>19</DataLength>
+            <DataType>Decimal</DataType>
+            <DefaultValue>0</DefaultValue>
+            <DisplayDecimalPos>3</DisplayDecimalPos>
+            <JustifyFormat>R</JustifyFormat>
+         </PropertyAttributes>
+      </PropertyClassDef>
+      <PropertyClassDef Name="QtyUnitNoNeg">
+         <BaseClass>QtyUnit</BaseClass>
+         <AccessAs>BaseSyteLine</AccessAs>
+         <PropertyAttributes>
+            <ColumnDataType>QtyUnitNoNegType</ColumnDataType>
+         </PropertyAttributes>
+      </PropertyClassDef>
+   </PropertyClasses>
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_TransferPickList">
+         <ServerName>ZWM_Customer</ServerName>
+         <LabelStringID>otrnitem_msts</LabelStringID>
+         <RevisionNo>23</RevisionNo>
+         <RevisionDate>2015-01-29T12:09:15</RevisionDate>
+         <ReplaceFlag>0</ReplaceFlag>
+         <Tables>
+            <Table Name="item_mst" Alias="item" Type="SECONDARY">
+               <ExplicitJoin>item.item = trnitem.item</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="zwm_parms_mst" Alias="parms" Type="SECONDARY">
+               <ExplicitJoin>parms.parm_key = 0</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="pick_list" Alias="pic" Type="SECONDARY">
+               <ExplicitJoin>pic.pick_list_id = ref.pick_list_id</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="pick_list_ref" Alias="ref" Type="SECONDARY">
+               <ExplicitJoin>ref.ref_num = trnitem.trn_num AND ref.ref_line_suf = trnitem.trn_line</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="transfer_mst" Alias="tra" Type="SECONDARY">
+               <ExplicitJoin>tra.trn_num = trnitem.trn_num</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="trnitem_mst" Alias="trnitem" Type="PRIMARY" />
+            <Table Name="whse_mst" Alias="whs" Type="SECONDARY">
+               <ExplicitJoin>whs.whse = trnitem.to_whse</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+         </Tables>
+         <Methods>
+            <Method Name="ZWM_GeneratePickListSp" Transactional="NO">
+               <StoredProcedure>ZWM_GeneratePickListSp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="BGTaskProcessId1" Sequence="5">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="BGTaskProcessId2" Sequence="6">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="InfoBar" Sequence="7">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PPackLoc" Sequence="3">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PPicker" Sequence="2">
+                     <DBDataType Length="30" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="ProcessId" Sequence="1">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="RouteId" Sequence="4">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+            <Method Name="ZWM_GenerateTransferPickListSp" Transactional="NO">
+               <StoredProcedure>ZWM_GenerateTransferPickListSp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="BGTaskProcessId1" Sequence="6">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="BGTaskProcessId2" Sequence="7">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="InfoBar" Sequence="8">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="LocFromRsvd" Sequence="5">
+                     <DBDataType Length="3" Scale="0">BYTE</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PPackLoc" Sequence="3">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PPicker" Sequence="2">
+                     <DBDataType Length="30" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="ProcessId" Sequence="1">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="RouteId" Sequence="4">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+            <Method Name="ZWM_PickListID" Transactional="NO">
+               <StoredProcedure>ZWM_PickListID</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="IDPickList" Sequence="1">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+            <Method Name="ZWM_PopulateTmpTransferPickListSp" Transactional="NO">
+               <StoredProcedure>ZWM_PopulateTmpTransferPickListSp</StoredProcedure>
+               <MethodType>0</MethodType>
+               <Parameters>
+                  <Parameter Name="DueDate" Sequence="8">
+                     <DBDataType Scale="0">TIMESTAMP</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="Infobar" Sequence="16">
+                     <DBDataType Length="2800" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <OUTPUT />
+                     <MESSAGE />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="Item" Sequence="9">
+                     <DBDataType Length="30" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PackLoc" Sequence="3">
+                     <DBDataType Length="15" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="Picker" Sequence="12">
+                     <DBDataType Length="30" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PickGroup" Sequence="2">
+                     <DBDataType Length="5" Scale="0">SHORT</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="PickListId" Sequence="14">
+                     <DBDataType Length="19" Scale="0">NUMERIC</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="ProcessId" Sequence="1">
+                     <DBDataType Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="QtyRemaining" Sequence="11">
+                     <DBDataType Length="19" Scale="8">NUMERIC</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="QtyToPick" Sequence="10">
+                     <DBDataType Length="19" Scale="8">NUMERIC</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="RefType" Sequence="5">
+                     <DBDataType Length="1" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="ToWhse" Sequence="15">
+                     <DBDataType Length="4" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="TrnLine" Sequence="7">
+                     <DBDataType Length="5" Scale="0">SHORT</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="TrnNum" Sequence="6">
+                     <DBDataType Length="20" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="UM" Sequence="13">
+                     <DBDataType Length="3" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+                  <Parameter Name="Whse" Sequence="4">
+                     <DBDataType Length="4" Scale="0">VARCHAR</DBDataType>
+                     <INPUT />
+                     <COMDataType>VARIANT</COMDataType>
+                  </Parameter>
+               </Parameters>
+               <ResultSetProperties />
+            </Method>
+         </Methods>
+         <Properties>
+            <Property Name="CommCode" Key="0" Binding="BOUND" Sequence="51">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>comm_code</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CommodityCodeType</ColumnDataType>
+                  <DataLength>12</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ConsNum" Key="0" Binding="BOUND" Sequence="56">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>cons_num</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ConsignmentsType</ColumnDataType>
+                  <DataType>Long Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CreateDate" Key="0" Binding="BOUND" Sequence="65">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreateDate</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CreatedBy" Key="0" Binding="BOUND" Sequence="63">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CreatedBy</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CrossSite" Key="0" Binding="BOUND" Sequence="39">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>cross_site</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ListYesNoType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Delterm" Key="0" Binding="BOUND" Sequence="54">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>delterm</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DeltermType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="DerPickQty" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>QtyReq - QtyShipped - ZwmDerQtyPickedInPPS - ZwmDerQtyToPickInPPS - ZwmDerQtyToShipInPPS</Expression>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitNoNegType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="EcCode" Key="0" Binding="BOUND" Sequence="58">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ec_code</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>EcCodeType</ColumnDataType>
+                  <DataLength>2</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ExportValue" Key="0" Binding="BOUND" Sequence="57">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>export_value</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AmountType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>23</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="FovhdCost" Key="0" Binding="BOUND" Sequence="24">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>fovhd_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="FrmRefLineSuf" Key="0" Binding="BOUND" Sequence="16">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>frm_ref_line_suf</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>SuffixPoReqLineType</ColumnDataType>
+                  <DataType>Short Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="FrmRefNum" Key="0" Binding="BOUND" Sequence="15">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>frm_ref_num</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>JobPoReqNumType</ColumnDataType>
+                  <DataLength>10</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="FrmRefRelease" Key="0" Binding="BOUND" Sequence="17">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>frm_ref_release</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>PoReleaseType</ColumnDataType>
+                  <DataType>Short Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="FrmRefType" Key="0" Binding="BOUND" Sequence="14">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>frm_ref_type</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RefTypeIJPRType</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="FromSite" Key="0" Binding="BOUND" Sequence="35">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>from_site</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>SiteType</ColumnDataType>
+                  <DataLength>8</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="FromWhse" Key="0" Binding="BOUND" Sequence="36">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>from_whse</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>WhseType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="InWorkflow" Key="0" Binding="BOUND" Sequence="66">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>InWorkflow</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+                  <IsRORecordFlag>1</IsRORecordFlag>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Item" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>item</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ItemType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ItmFamilyCode" Key="0" Binding="BOUND" Sequence="23">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>family_code</BoundToColumn>
+               <ColumnTableAlias>item</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FamilyCodeType</ColumnDataType>
+                  <DataLength>10</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ItmProductCode" Key="0" Binding="BOUND" Sequence="12">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>product_code</BoundToColumn>
+               <ColumnTableAlias>item</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ProductCodeType</ColumnDataType>
+                  <DataLength>10</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ItmStat" Key="0" Binding="BOUND" Sequence="123">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>stat</BoundToColumn>
+               <ColumnTableAlias>item</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ItemStatusType</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="LbrCost" Key="0" Binding="BOUND" Sequence="23">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>lbr_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="LcOverride" Key="0" Binding="BOUND" Sequence="49">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>lc_override</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ListYesNoType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="MatlCost" Key="0" Binding="BOUND" Sequence="22">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>matl_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="NoteExistsFlag" Key="0" Binding="BOUND" Sequence="60">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>NoteExistsFlag</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Origin" Key="0" Binding="BOUND" Sequence="55">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>origin</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>EcCodeType</ColumnDataType>
+                  <DataLength>2</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="OutCost" Key="0" Binding="BOUND" Sequence="26">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>out_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="PickDate" Key="0" Binding="BOUND" Sequence="19">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>pick_date</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DateType</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="PicStatus" Key="0" Binding="BOUND" Sequence="3">
+               <PropertyClass>PickListStatus</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>status</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="PreassignLots" Key="0" Binding="BOUND" Sequence="78">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>preassign_lots</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ListYesNoType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="PreassignSerials" Key="0" Binding="BOUND" Sequence="79">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>preassign_serials</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ListYesNoType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Pricecode" Key="0" Binding="BOUND" Sequence="30">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>pricecode</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>PriceCodeType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ProcessInd" Key="0" Binding="BOUND" Sequence="53">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>process_ind</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ProcessIndType</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ProjectedDate" Key="0" Binding="BOUND" Sequence="50">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>projected_date</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DateType</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyLoss" Key="0" Binding="BOUND" Sequence="12">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_loss</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyPacked" Key="0" Binding="BOUND" Sequence="18">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_packed</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyReceived" Key="0" Binding="BOUND" Sequence="11">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_received</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyReq" Key="0" Binding="BOUND" Sequence="9">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_req</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyReqConv" Key="0" Binding="BOUND" Sequence="20">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_req_conv</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="QtyShipped" Key="0" Binding="BOUND" Sequence="10">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>qty_shipped</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>QtyUnitType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RcptRqmtC" Key="0" Binding="BOUND" Sequence="68">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>rcpt_rqmt_c</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>varchar</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RcptRqmtQ" Key="0" Binding="BOUND" Sequence="67">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>rcpt_rqmt_q</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>varchar</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RcvdDate" Key="0" Binding="BOUND" Sequence="8">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>rcvd_date</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DateType</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RecordDate" Key="0" Binding="BOUND" Sequence="61">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RecordDate</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CurrentDateType</ColumnDataType>
+                  <DataType>Date</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RefPickListId" Key="0" Binding="BOUND" Sequence="2">
+               <PropertyClass>PickListId</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>pick_list_id</BoundToColumn>
+               <ColumnTableAlias>ref</ColumnTableAlias>
+               <PropertyAttributes>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="RowPointer" Key="0" Binding="BOUND" Sequence="62">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>RowPointer</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RowPointerType</ColumnDataType>
+                  <DataType>GUID</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="SchRcvDate" Key="0" Binding="BOUND" Sequence="27">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>sch_rcv_date</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DateType</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="SchRcvDateDay" Key="0" Binding="BOUND" Sequence="76">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>sch_rcv_date_day</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>datetime</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="SchShipDate" Key="0" Binding="BOUND" Sequence="28">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>sch_ship_date</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DateType</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="SchShipDateDay" Key="0" Binding="BOUND" Sequence="77">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>sch_ship_date_day</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>datetime</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ShipCode" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ship_code</BoundToColumn>
+               <ColumnTableAlias>tra</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ShipCodeType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ShipDate" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ship_date</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DateType</ColumnDataType>
+                  <DataType>Date</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="SiteRef" Key="3" Binding="BOUND" Sequence="1">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>site_ref</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>SiteType</ColumnDataType>
+                  <DataLength>8</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Stat" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>stat</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>TransferStatusType</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="SupplQtyConvFactor" Key="0" Binding="BOUND" Sequence="74">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>suppl_qty_conv_factor</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMConvFactorType</ColumnDataType>
+                  <DataType>Float</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ToRefLineSuf" Key="0" Binding="BOUND" Sequence="33">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>to_ref_line_suf</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CoLineSuffixType</ColumnDataType>
+                  <DataType>Short Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ToRefNum" Key="0" Binding="BOUND" Sequence="32">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>to_ref_num</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CoNumJobType</ColumnDataType>
+                  <DataLength>10</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ToRefRelease" Key="0" Binding="BOUND" Sequence="34">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>to_ref_release</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CoReleaseOperNumType</ColumnDataType>
+                  <DataType>Short Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ToRefType" Key="0" Binding="BOUND" Sequence="31">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>to_ref_type</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>RefTypeIJOType</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ToSite" Key="0" Binding="BOUND" Sequence="37">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>to_site</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>SiteType</ColumnDataType>
+                  <DataLength>8</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ToWhse" Key="0" Binding="BOUND" Sequence="38">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>to_whse</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>WhseType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="TransNat" Key="0" Binding="BOUND" Sequence="52">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>trans_nat</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>TransNatType</ColumnDataType>
+                  <DataLength>2</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="TransNat2" Key="0" Binding="BOUND" Sequence="73">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>trans_nat_2</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>TransNat2Type</ColumnDataType>
+                  <DataLength>2</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Transport" Key="0" Binding="BOUND" Sequence="59">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>transport</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>TransportType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="TrnItemStatus" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>stat</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>TransferStatusType</ColumnDataType>
+                  <DataLength>1</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="TrnLine" Key="2" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>trn_line</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>TrnLineType</ColumnDataType>
+                  <DataType>Short Integer</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="TrnLoc" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>trn_loc</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>LocType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="TrnNum" Key="1" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>trn_num</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>TrnNumType</ColumnDataType>
+                  <DataLength>10</DataLength>
+                  <DataType>String</DataType>
+                  <IsRequired>1</IsRequired>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UbGroup" Binding="UNBOUND" Sequence="0">
+               <PropertyClass>PickGroup</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <PropertyAttributes />
+            </Property>
+            <Property Name="UbSelect" Binding="UNBOUND" Sequence="0">
+               <PropertyClass>BooleanQuery</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <PropertyAttributes />
+            </Property>
+            <Property Name="UM" Key="0" Binding="BOUND" Sequence="21">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>u_m</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitBrokerageCost" Key="0" Binding="BOUND" Sequence="42">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_brokerage_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitBrokerageCostConv" Key="0" Binding="BOUND" Sequence="43">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_brokerage_cost_conv</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitCost" Key="0" Binding="BOUND" Sequence="13">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitDutyCost" Key="0" Binding="BOUND" Sequence="44">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_duty_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitDutyCostConv" Key="0" Binding="BOUND" Sequence="45">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_duty_cost_conv</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitFreightCost" Key="0" Binding="BOUND" Sequence="40">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_freight_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitFreightCostConv" Key="0" Binding="BOUND" Sequence="41">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_freight_cost_conv</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitInsuranceCost" Key="0" Binding="BOUND" Sequence="69">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_insurance_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitInsuranceCostConv" Key="0" Binding="BOUND" Sequence="70">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_insurance_cost_conv</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitLocFrtCost" Key="0" Binding="BOUND" Sequence="71">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_loc_frt_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitLocFrtCostConv" Key="0" Binding="BOUND" Sequence="72">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_loc_frt_cost_conv</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitMatCost" Key="0" Binding="BOUND" Sequence="46">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_mat_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitMatCostConv" Key="0" Binding="BOUND" Sequence="47">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_mat_cost_conv</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitPrice" Key="0" Binding="BOUND" Sequence="29">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_price</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnitWeight" Key="0" Binding="BOUND" Sequence="48">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unit_weight</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UnitWeightType</ColumnDataType>
+                  <DataDecimalPos>3</DataDecimalPos>
+                  <DataLength>11</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UnlinkedXref" Key="0" Binding="BOUND" Sequence="75">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>unlinked_xref</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ListYesNoType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="UpdatedBy" Key="0" Binding="BOUND" Sequence="64">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>UpdatedBy</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UsernameType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="VovhdCost" Key="0" Binding="BOUND" Sequence="25">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>vovhd_cost</BoundToColumn>
+               <ColumnTableAlias>trnitem</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CostPrcType</ColumnDataType>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>20</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhseAddr1" Key="0" Binding="BOUND" Sequence="16">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>addr##1</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AddressType</ColumnDataType>
+                  <DataLength>50</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhseAddr2" Key="0" Binding="BOUND" Sequence="17">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>addr##2</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AddressType</ColumnDataType>
+                  <DataLength>50</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhseAddr3" Key="0" Binding="BOUND" Sequence="18">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>addr##3</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AddressType</ColumnDataType>
+                  <DataLength>50</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhseAddr4" Key="0" Binding="BOUND" Sequence="19">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>addr##4</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>AddressType</ColumnDataType>
+                  <DataLength>50</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhseCity" Key="0" Binding="BOUND" Sequence="4">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>city</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>CityType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhseContact" Key="0" Binding="BOUND" Sequence="8">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>contact</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ContactType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhseName" Key="0" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>name</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>NameType</ColumnDataType>
+                  <DataLength>60</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhsePhone" Key="0" Binding="BOUND" Sequence="9">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>phone</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>PhoneType</ColumnDataType>
+                  <DataLength>25</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="WhseState" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>state</BoundToColumn>
+               <ColumnTableAlias>whs</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>StateType</ColumnDataType>
+                  <DataLength>5</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmDerQtyPickedInPPS" Binding="DERIVED" Sequence="0">
+               <PropertyClass>QtyUnitNoNeg</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>ISNULL((SELECT TOP 1
+      SUM(ISNULL(picklistref.qty_picked,0))
+   FROM pick_list_ref picklistref 
+   JOIN pick_list picklist ON picklist.pick_list_id = picklistref.pick_list_id
+   WHERE picklistref.ref_line_suf = TrnLine
+      AND picklistref.ref_num  = TrnNum
+      AND picklist.status = 'P'),0)</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmDerQtyToPickInPPS" Binding="DERIVED" Sequence="0">
+               <PropertyClass>QtyUnitNoNeg</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>ISNULL((SELECT TOP 1
+         SUM(ISNULL(picklistref.qty_to_pick,0))
+   FROM pick_list_ref picklistref
+   JOIN pick_list picklist ON picklist.pick_list_id = picklistref.pick_list_id
+   WHERE picklistref.ref_line_suf = TrnLine
+      AND picklistref.ref_num  = TrnNum
+      AND picklist.status = 'O'),0)</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmDerQtyToShipInPPS" Binding="DERIVED" Sequence="0">
+               <PropertyClass>QtyUnitNoNeg</PropertyClass>
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>ISNULL((SELECT TOP 1
+         SUM(ISNULL(shipseq.qty_picked,0))
+   FROM shipment_seq shipseq
+   JOIN shipment_line shipline ON shipline.shipment_id = shipseq.shipment_id AND shipline.shipment_line = shipseq.shipment_line
+   JOIN pick_list_ref picklistref ON picklistref.pick_list_id = shipline.pick_list_id AND picklistref.sequence = shipline.pick_list_ref_sequence
+   JOIN coitem coitem ON coitem.co_num = picklistref.ref_num AND coitem.co_line = picklistref.ref_line_suf AND coitem.co_release = picklistref.ref_release AND picklistref.ref_type = 'O'
+   JOIN shipment ship ON ship.shipment_id = shipseq.shipment_id AND ship.status &lt;&gt; 'S'
+   WHERE coitem.co_line = TrnLine
+      AND coitem.co_num = TrnNum),0)</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>8</DataDecimalPos>
+                  <DataLength>19</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmShipViaTrnPicklist" Key="0" Binding="BOUND" Sequence="20">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ship_via_transfer_picklist</BoundToColumn>
+               <ColumnTableAlias>parms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ShipCodeType</ColumnDataType>
+                  <DataLength>4</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmUMVol" Key="0" Binding="BOUND" Sequence="7">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>um_vol</BoundToColumn>
+               <ColumnTableAlias>parms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmUmWeight" Key="0" Binding="BOUND" Sequence="6">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>um_weight</BoundToColumn>
+               <ColumnTableAlias>parms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmUnitWeight" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>dbo.ZWM_UnitWeight(Item) * DerPickQty</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>9</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmVolume" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>dbo.ZWM_VolumetricVol(Item) * DerPickQty</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>9</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="ZwmVolumetricWeight" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>dbo.ZWM_VolumetricWeight(Item) * DerPickQty</Expression>
+               <PropertyAttributes>
+                  <DataDecimalPos>2</DataDecimalPos>
+                  <DataLength>9</DataLength>
+                  <DataType>Decimal</DataType>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLTmpPickListLocs">
+         <ServerName>ZWM_Customer</ServerName>
+         <RevisionNo>4</RevisionNo>
+         <RevisionDate>2015-01-21T17:32:25</RevisionDate>
+         <Extends>SLTmpPickListLocs</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables />
+         <Methods />
+         <Properties>
+            <Property Name="ZWM_RouteMap" Binding="DERIVED" Sequence="0">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <Expression>select distinct(p.ZWM_IdRouteMap)
+from pick_list p
+inner join tmp_pick_list_loc t
+on p.pick_list_id = t.pick_list_id
+where t.pick_list_id = PickListId</Expression>
+               <PropertyAttributes>
+                  <ColumnDataType>ZwmIdRouteMapType</ColumnDataType>
+                  <DataLength>15</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>

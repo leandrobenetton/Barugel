@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ObjectStudioExport Version="060000">
+   <IDODefinitions>
+      <IDODefinition Name="ZWM_SLShipmentSeqUnpacks">
+         <ServerName>ZWM_Customer</ServerName>
+         <RevisionNo>5</RevisionNo>
+         <RevisionDate>2015-01-05T18:11:33</RevisionDate>
+         <Extends>SLShipmentSeqUnpacks</Extends>
+         <ReplaceFlag>1</ReplaceFlag>
+         <Tables>
+            <Table Name="item_mst" Alias="iteTrn" Type="SECONDARY">
+               <ExplicitJoin>iteTrn.item = trn.item</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+            <Table Name="trnitem_mst" Alias="trn" Type="SECONDARY">
+               <ExplicitJoin>trn.trn_num = ref.ref_num AND trn.trn_line = ref.ref_line_suf</ExplicitJoin>
+               <JoinType>LEFT OUTER</JoinType>
+            </Table>
+         </Tables>
+         <Methods />
+         <Properties>
+            <Property Name="TrnItem" Key="0" Binding="BOUND" Sequence="2">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>item</BoundToColumn>
+               <ColumnTableAlias>iteTrn</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>ItemType</ColumnDataType>
+                  <DataLength>30</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="TrnItemDescription" Key="0" Binding="BOUND" Sequence="3">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>description</BoundToColumn>
+               <ColumnTableAlias>iteTrn</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>DescriptionType</ColumnDataType>
+                  <DataLength>40</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="TrnItemUM" Key="0" Binding="BOUND" Sequence="5">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>u_m</BoundToColumn>
+               <ColumnTableAlias>iteTrn</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>UMType</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+                  <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="Uf_IdRouteMap" Key="0" Binding="BOUND" Sequence="19">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>ZWM_IdRouteMap</BoundToColumn>
+               <ColumnTableAlias>pic</ColumnTableAlias>
+               <PropertyAttributes />
+            </Property>
+         </Properties>
+         <Rules />
+      </IDODefinition>
+   </IDODefinitions>
+</ObjectStudioExport>
