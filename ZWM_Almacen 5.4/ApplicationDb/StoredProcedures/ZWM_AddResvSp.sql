@@ -1,15 +1,14 @@
-/****** Object:  StoredProcedure [dbo].[ZWM_AddResvSp]    Script Date: 01/09/2015 13:05:16 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_AddResvSp]    Script Date: 02/05/2015 12:02:54 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ZWM_AddResvSp]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[ZWM_AddResvSp]
 GO
 
-/****** Object:  StoredProcedure [dbo].[ZWM_AddResvSp]    Script Date: 01/09/2015 13:05:16 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_AddResvSp]    Script Date: 02/05/2015 12:02:54 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
 
 --   INTERFACE:
 --
@@ -203,6 +202,13 @@ DECLARE
 SET @Severity = 0
 SET @Infobar = NULL
 SET @All = CASE WHEN @Lot IS NULL THEN 1 ELSE 0 END
+
+EXEC @Severity = CheckWhseExternalControlledFlagSp
+               @PWhse   = @Whse
+             , @PSite   = NULL
+             , @Infobar = @Infobar OUTPUT
+IF @Severity <> 0
+    RETURN @Severity
 
 if @ParmsSite is null
    SELECT
@@ -608,7 +614,6 @@ IF @Severity <> 0
     RETURN @Severity
 
 RETURN 0
-
 GO
 
 

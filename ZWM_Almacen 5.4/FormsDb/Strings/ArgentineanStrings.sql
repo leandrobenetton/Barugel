@@ -585,8 +585,40 @@ DELETE FROM [ArgentineanStrings] WHERE [Name] = N'sZwmWhseOrig' AND [ScopeType] 
 INSERT INTO [ArgentineanStrings] ([Name], [String], [String2], [String3], [ScopeType], [ScopeName], [LockedBy] ) 
 VALUES (N'sZwmWhseOrig', N'Dep' + NCHAR(243) + N'sito Or' + NCHAR(237) + N'gen', NULL, NULL, 1, N'[NULL]', NULL)
 -------------------------------------------------------------------------------
-DELETE FROM [Strings] WHERE [Name] = N'sZwmOrdersWithRsvd' AND [ScopeType] = 1 AND [ScopeName] = N'[NULL]' 
+DELETE FROM [ArgentineanStrings] WHERE [Name] = N'sZwmOrdersWithRsvd' AND [ScopeType] = 1 AND [ScopeName] = N'[NULL]' 
 
-INSERT INTO [Strings] ([Name], [String], [String2], [String3], [ScopeType], [ScopeName], [LockedBy] ) 
+INSERT INTO [ArgentineanStrings] ([Name], [String], [String2], [String3], [ScopeType], [ScopeName], [LockedBy] ) 
 VALUES (N'sZwmOrdersWithRsvd', N'Solo ordenes con reserva asociada', NULL, NULL, 1, N'[NULL]', NULL)
+-------------------------------------------------------------------------------
+DELETE FROM [ArgentineanStrings] WHERE [Name] = N'sZwmColBox' AND [ScopeType] = 1 AND [ScopeName] = N'[NULL]' 
+
+INSERT INTO [ArgentineanStrings] ([Name], [String], [String2], [String3], [ScopeType], [ScopeName], [LockedBy] ) 
+VALUES (N'sZwmColBox', N'Caja recolectora', NULL, NULL, 1, N'[NULL]', NULL)
+-------------------------------------------------------------------------------
+
+DELETE FROM [ArgentineanStrings] WHERE [Name] = N'sZwmCustomRsvd' AND [ScopeType] = 1 AND [ScopeName] = N'[NULL]' 
+
+INSERT INTO [ArgentineanStrings] ([Name], [String], [String2], [String3], [ScopeType], [ScopeName], [LockedBy] ) 
+VALUES (N'sZwmCustomRsvd', N'Logica de Reserva particular del cliente', NULL, NULL, 1, N'[NULL]', NULL)
+-------------------------------------------------------------------------------
+DELETE FROM [ArgentineanStrings] WHERE [Name] = N'sZwmFreightCalcAcumDueDate' AND [ScopeType] = 1 AND [ScopeName] = N'[NULL]' 
+
+INSERT INTO [ArgentineanStrings] ([Name], [String], [String2], [String3], [ScopeType], [ScopeName], [LockedBy] ) 
+VALUES (N'sZwmFreightCalcAcumDueDate', N'Acumula fecha de entrega p/ calculo de flete', NULL, NULL, 1, N'[NULL]', NULL)
+-------------------------------------------------------------------------------
+DELETE FROM [ArgentineanStrings] WHERE [Name] = N'sZwmPrefixCustomCustomer' AND [ScopeType] = 1 AND [ScopeName] = N'[NULL]' 
+
+INSERT INTO [ArgentineanStrings] ([Name], [String], [String2], [String3], [ScopeType], [ScopeName], [LockedBy] ) 
+VALUES (N'sZwmPrefixCustomCustomer', N'Prefijo customizaci' + NCHAR(243) + N'n cliente', NULL, NULL, 1, N'[NULL]', NULL)
+-------------------------------------------------------------------------------
+
+DELETE FROM [ArgentineanStrings] WHERE [Name] = N'sZwmLocTrnOrder' AND [ScopeType] = 1 AND [ScopeName] = N'[NULL]' 
+
+INSERT INTO [ArgentineanStrings] ([Name], [String], [String2], [String3], [ScopeType], [ScopeName], [LockedBy] ) 
+VALUES (N'sZwmLocTrnOrder', N'Ubicaci' + NCHAR(243) + N'n de Recepci' + NCHAR(243) + N'n Transferencias', NULL, NULL, 1, N'[NULL]', NULL)
+-------------------------------------------------------------------------------
+DELETE FROM [ArgentineanStrings] WHERE [Name] = N'sZwmTrnShipViaDefault' AND [ScopeType] = 1 AND [ScopeName] = N'[NULL]' 
+
+INSERT INTO [ArgentineanStrings] ([Name], [String], [String2], [String3], [ScopeType], [ScopeName], [LockedBy] ) 
+VALUES (N'sZwmTrnShipViaDefault', N'Ship Via Transferencias', NULL, NULL, 1, N'[NULL]', NULL)
 -------------------------------------------------------------------------------

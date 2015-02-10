@@ -1,26 +1,26 @@
-/****** Object:  StoredProcedure [dbo].[ZWM_DeleteTempReservationSp]    Script Date: 06/26/2012 13:04:24 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_DeleteTempReservationSp]    Script Date: 02/05/2015 18:49:49 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ZWM_DeleteTempReservationSp]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[ZWM_DeleteTempReservationSp]
 GO
 
-/****** Object:  StoredProcedure [dbo].[ZWM_DeleteTempReservationSp]    Script Date: 06/26/2012 13:04:24 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_DeleteTempReservationSp]    Script Date: 02/05/2015 18:49:49 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
+
 CREATE PROCEDURE [dbo].[ZWM_DeleteTempReservationSp](
  @pWhseStart	WhseType = NULL
 ,@pWhseEnd		WhseType = NULL
-,@pItemStart ItemType = NULL
-,@pItemEnd  ItemType = NULL
+,@pItemStart	ItemType = NULL
+,@pItemEnd		ItemType = NULL
 )
 AS
 
 SET @pItemStart = ISNULL(@pItemStart,dbo.LowCharacter())
 SET @pItemEnd = ISNULL(@pItemEnd,dbo.HighCharacter())
-
 
 SET @pWhseStart = ISNULL(@pWhseStart,dbo.LowCharacter())
 SET @pWhseEnd = ISNULL(@pWhseEnd,dbo.HighCharacter())
@@ -72,9 +72,18 @@ DECLARE @Severity int
 ,@Infobar		   InfobarType
 ,@HighDate			DateType
 
+DECLARE
+@TaskNumber		TokenType
+,@SeverityFlag	FlagNyType	= 0
+
+DECLARE @Today DateType
+SET @Today = dbo.GetSiteDate(GETDATE())
+
 SET @Severity = 0
 SET @HighDate = dbo.HighDate()
 
+IF (SELECT count(*) FROM ActiveBGTasks where TaskName = 'ZWM_DeleteTempReservation') = 1
+	SELECT @TaskNumber = TaskNumber FROM ActiveBGTasks where TaskName = 'ZWM_DeleteTempReservation'
 
 INSERT INTO @TmpRsvd (
   rsvd_num	
@@ -111,10 +120,8 @@ SELECT rsvd_num
   FROM rsvd_inv
   WHERE whse BETWEEN @pWhseStart AND @pWhseEnd 
 	AND item BETWEEN @pItemStart AND @pItemEnd 
-	AND ISNULL(ZWM_ExpDate,@HighDate ) <= dbo.Getdate()
+	AND ISNULL(ZWM_ExpDate,@HighDate ) <= @Today
 	 
-
-
 DECLARE RsvdCur CURSOR LOCAL STATIC FOR 
    SELECT  rsvd_num	
 	    , qty_rsvd	
@@ -138,9 +145,7 @@ BEGIN
 		  BREAK	
 
 	    SET @ConvFactor = dbo.Getumcf(@RsiUm,@RsiItem,NULL,'I')
-
-
-
+		
 	    EXECUTE @severity = UpdResvSp
 					   1		    --  @DelRsvd
 				    ,@RsiRowPointer
@@ -152,12 +157,22 @@ BEGIN
 				    ,0
 				    ,0
 
-
+		IF @Severity <> 0
+		BEGIN
+			SET @SeverityFlag = 1
+			INSERT INTO ZWM_DeleteRsvdLog ([TaskNumber], [Rsvd_Num], [Ref_RowPointer], [TaskErrorMsg])
+			VALUES (@TaskNumber, @RsiRsvdNum, @RsiRowPointer, @Infobar)	
+		END
+		
 END
 CLOSE RsvdCur
 DEALLOCATE RsvdCur
 
+IF @SeverityFlag = 1
+	SET @Severity = 1
 
 RETURN @Severity
+
 GO
+
 

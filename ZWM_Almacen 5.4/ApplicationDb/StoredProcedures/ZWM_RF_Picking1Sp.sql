@@ -1,30 +1,32 @@
-/****** Object:  StoredProcedure [dbo].[ZWM_RF_Picking1Sp]    Script Date: 01/20/2015 15:10:16 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_RF_Picking1Sp]    Script Date: 01/30/2015 10:50:35 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ZWM_RF_Picking1Sp]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[ZWM_RF_Picking1Sp]
 GO
 
-/****** Object:  StoredProcedure [dbo].[ZWM_RF_Picking1Sp]    Script Date: 01/20/2015 15:10:16 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_RF_Picking1Sp]    Script Date: 01/30/2015 10:50:35 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-
 CREATE PROCEDURE [dbo].[ZWM_RF_Picking1Sp] (
      @Site				SiteType
 	,@UserName			UserNameType			= NULL
 	,@PickListID		PickListIDType			= NULL
 	,@Seq				PickListSequenceType	= NULL
-	,@CoNum				CoNumType				= NULL
-	,@CoLine			CoLineType				= NULL
-	,@CoRelease			CoReleaseType			= NULL
+	,@RefType			RefType					= NULL-- 'T' = Transferencia, 'O' = Orden de venta
+	,@RefNum			CoNumType				= NULL
+	,@RefLine			CoLineType				= NULL
+	,@RefRelease		CoReleaseType			= NULL
+	,@Zone				DescriptionType			= NULL
 	,@whse				WhseType				= NULL OUTPUT
     ,@Loc				LocType					= NULL OUTPUT
     ,@Item				ItemType				= NULL OUTPUT
     ,@Lot				LotType					= NULL OUTPUT
     ,@Qty				QtyUnitType				= NULL OUTPUT
     ,@um				UMType					= NULL OUTPUT
+	,@From				char(1)					= NULL --indica si se debe tomar el dato de las reservas o de la tabla de picklist
     ,@Infobar			InfobarType				= NULL OUTPUT
 )
 AS
@@ -41,15 +43,18 @@ AS
 		,@UserName			
 		,@PickListID		
 		,@Seq				
-		,@CoNum				
-		,@CoLine			
-		,@CoRelease			
+		,@RefType
+		,@RefNum				
+		,@RefLine			
+		,@RefRelease			
+		,@Zone
 		,@whse				OUTPUT
 		,@Loc				OUTPUT
 		,@Item				OUTPUT
 		,@Lot				OUTPUT
 		,@Qty				OUTPUT
 		,@um				OUTPUT
+		,@From
 		,@Infobar			OUTPUT	
  
       -- ETP routine can RETURN 1 to signal that the remainder of this standard routine should now proceed:
@@ -58,11 +63,27 @@ AS
    END
    -- End of Generic External Touch Point code.
 
+--Setea Null en parámetros de Entrada
+IF LEN(LTRIM(RTRIM(@UserName))) = 0
+	SET @UserName = NULL
+IF LEN(LTRIM(RTRIM(@PickListID))) = 0
+	SET @PickListID = NULL
+IF LEN(LTRIM(RTRIM(@Seq))) = 0
+	SET @Seq = NULL
+IF LEN(LTRIM(RTRIM(@RefNum))) = 0
+	SET @RefNum = NULL
+IF LEN(LTRIM(RTRIM(@RefLine))) = 0
+	SET @RefLine = NULL
+IF LEN(LTRIM(RTRIM(@RefRelease))) = 0
+	SET @RefRelease = NULL
+IF LEN(LTRIM(RTRIM(@Zone))) = 0
+	SET @Zone = NULL
+IF LEN(LTRIM(RTRIM(@From))) = 0
+	SET @From = NULL
 
-
+--Inicio de Sesion
 DECLARE	@return_value int,
-		@Severity int,
-		@sessionId		RowPointerType
+		@sessionId            RowPointerType
 
 SET @UserName = isnull(@UserName,'sa')
 
@@ -71,59 +92,55 @@ EXEC	@return_value = [dbo].[InitSessionContextWithUserSp]
 		@UserName = @UserName,
 		@SessionID = @SessionID OUTPUT,
 		@Site = @Site
-	
-SET @CoNum = dbo.ExpandKyByType('CoNumType',@CoNum)	
+
+--Solo para implementacion Barugel Azulay
+DECLARE @BAR FlagNyTYpe
+IF (Select count(*) from zwm_parms where customer = 'BAR') > 0
+	Set @BAR = 1 
+
+DECLARE @Severity int
+SET @Severity = 0
+
 SET @Lot = dbo.ExpandKyByType('LotType',@Lot)
+IF @RefType = 'O'
+	SET @RefNum = dbo.ExpandKyByType('CoNumType',@RefNum)	
+IF @RefType = 'T'
+	SET @RefNum = dbo.ExpandKyByType('TrnNumType',@RefNum)	
 
------------------------------- SET NULLs
-IF LEN(LTRIM(@PickListID)) = 0
-	SET @PickListID = NULL
-
-IF LEN(LTRIM(@Seq)) = 0
-	SET @Seq = NULL
-
-IF LEN(LTRIM(@CoNum)) = 0
-	SET @CoNum = NULL
-
-IF LEN(LTRIM(@CoLine)) = 0
-	SET @CoLine = NULL
-
-IF LEN(LTRIM(@CoRelease)) = 0
-	SET @CoRelease = NULL
------------------------------- SET NULLs
-
-	
-IF	@PickListID IS NULL AND @Seq IS NULL AND @CoNum IS NULL AND @CoLine IS NULL AND @CoRelease IS NULL
+IF	(@PickListID IS NULL OR @Seq IS NULL) AND (@RefType = 'O' AND (@RefNum IS NULL OR @RefLine IS NULL OR @RefRelease IS NULL)) AND (@RefType = 'T' AND (@RefNum IS NULL OR @RefLine IS NULL))
 BEGIN
-	SET @Infobar = 'Debe ingresar Pick List ID o Numero de Pedido'
+	SET @Infobar = 'Debe ingresar datos de referencia'
 	SET @Severity = 16
 	RETURN @Severity
 END
 
-IF @PickListID IS NULL or @Seq IS NULL
+IF (@PickListID IS NULL OR @Seq IS NULL)
 BEGIN
-	SELECT @PickListID = pick_list_id, @Seq = sequence
-	FROM pick_list_ref
-	WHERE ref_num = @CoNum AND ref_line_suf = @CoLine AND ref_release = @CoRelease
-	AND qty_to_pick > qty_picked
+	SELECT @PickListID = plr.pick_list_id, @Seq = plr.sequence
+	FROM pick_list_ref plr JOIN pick_list pl on plr.pick_list_id = pl.pick_list_id
+	WHERE 
+	(@RefType = 'O' and plr.ref_num = @RefNum AND plr.ref_line_suf = @RefLine AND plr.ref_release = @RefRelease AND pl.status = 'O')
+	OR
+	(@RefType = 'T' and plr.ref_num = @RefNum AND plr.ref_line_suf = @RefLine and pl.status = 'O')
 END
 
 IF (select count(pick_list_id)FROM pick_list_ref where pick_list_id = @PickListID and sequence = @Seq) = 0
-begin
+BEGIN
 	SET @Infobar = 'No Existen los datos de referencia'
 	SET @Severity = 16
 	RETURN @Severity
-end
+END
 
 IF (select status FROM pick_list_ref plr join pick_list pl on pl.pick_list_id = plr.pick_list_id 
 where plr.pick_list_id = @PickListID and plr.sequence = @Seq) != 'O'
-begin
+BEGIN
 	SET @Infobar = 'El Pickeo esta cerrado'
 	SET @Severity = 16
 	RETURN @Severity
-end
+END
 
 BEGIN
+
 	SELECT TOP 1
 	@item = i.item
 	,@whse = pl.whse
@@ -137,12 +154,15 @@ BEGIN
 	ON pl.pick_list_id = plr.pick_list_id
 	JOIN pick_list_loc pll
 	ON pl.pick_list_id = pll.pick_list_id
-	JOIN coitem coi
+	LEFT JOIN coitem coi
 	ON plr.ref_num = coi.co_num and plr.ref_line_suf = coi.co_line and plr.ref_release = coi.co_release
+	LEFT JOIN trnitem trni
+	ON plr.ref_num = trni.trn_num and plr.ref_line_suf = trni.trn_line
 	JOIN item i
 	ON coi.item = i.item
 	WHERE pll.pick_list_id = @PickListID and pll.sequence = @Seq
 	AND pll.qty_to_pick > pll.qty_picked
+
 END
 
 EXEC dbo.CloseSessionContextSp @SessionID = @SessionID

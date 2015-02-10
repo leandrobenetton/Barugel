@@ -119,8 +119,8 @@ ALTER TABLE [dbo].[shipment_mst]
 
 ---------------------------------------------------------------------------------------------------------------------
 -- el campo loc admite nulos
-IF (EXISTS(SELECT * FROM sys.objects WHERE [object_id] = OBJECT_ID(N'[dbo].[zwm_item_col_box_mst]') AND [type]='U')) 
-	ALTER TABLE zwm_item_col_box_mst ALTER COLUMN loc [dbo].[LocType]  NULL
+/*IF (EXISTS(SELECT * FROM sys.objects WHERE [object_id] = OBJECT_ID(N'[dbo].[zwm_item_col_box_mst]') AND [type]='U')) 
+	ALTER TABLE zwm_item_col_box_mst ALTER COLUMN loc [dbo].[LocType]  NULL*/
 
 ---------------------------------------------------------------------------------------------------------------------
 --- tmp_pick_list
@@ -130,4 +130,19 @@ ALTER TABLE [dbo].[tmp_pick_list]
       ADD [ZWM_ToWhse] [dbo].[WhseType] NULL
 GO
 
+---------------------------------------------------------------------------------------------------------------------------
+
+-- zwm_parms_mst
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'zwm_parms_mst' AND COLUMN_NAME = 'FreightCalcAcumDueDate')
+ALTER TABLE [dbo].zwm_parms_mst ADD FreightCalcAcumDueDate [dbo].FlagNyType NULL
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'zwm_parms_mst' AND COLUMN_NAME = 'CustomRsvd')
+ALTER TABLE [dbo].zwm_parms_mst ADD CustomRsvd [dbo].FlagNyType NULL
+
+---------------------------------------------------------------------------------------------------------------------------
+IF (EXISTS(SELECT * FROM sys.objects WHERE [object_id] = OBJECT_ID(N'[dbo].[zwm_mvtran_mst]') AND [type]='U')) 
+	ALTER TABLE zwm_mvtran_mst ALTER COLUMN trans_date [dbo].[DateType]  NULL
+	ALTER TABLE zwm_mvtran_mst ALTER COLUMN u_m [dbo].[UMType]  NULL
+	ALTER TABLE zwm_mvtran_mst ALTER COLUMN exchange_loc [dbo].[LocType]  NULL
+	
 ---------------------------------------------------------------------------------------------------------------------------

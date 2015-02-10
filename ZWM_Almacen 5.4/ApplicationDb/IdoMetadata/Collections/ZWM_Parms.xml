@@ -3,8 +3,8 @@
    <IDODefinitions>
       <IDODefinition Name="ZWM_Parms">
          <ServerName>ZWM_Parms</ServerName>
-         <RevisionNo>13</RevisionNo>
-         <RevisionDate>2014-12-09T11:56:03</RevisionDate>
+         <RevisionNo>14</RevisionNo>
+         <RevisionDate>2015-02-09T09:39:12</RevisionDate>
          <ReplaceFlag>0</ReplaceFlag>
          <Tables>
             <Table Name="zwm_parms_mst" Alias="zwmparms" Type="PRIMARY" />
@@ -30,6 +30,34 @@
                   <DataLength>30</DataLength>
                   <DataType>String</DataType>
                   <IsReadOnly>1</IsReadOnly>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="customer" Key="0" Binding="BOUND" Sequence="16">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>customer</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>nvarchar</ColumnDataType>
+                  <DataLength>3</DataLength>
+                  <DataType>String</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="CustomRsvd" Key="0" Binding="BOUND" Sequence="24">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>CustomRsvd</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
+               </PropertyAttributes>
+            </Property>
+            <Property Name="FreightCalcAcumDueDate" Key="0" Binding="BOUND" Sequence="23">
+               <PseudoKeyFlag>0</PseudoKeyFlag>
+               <BoundToColumn>FreightCalcAcumDueDate</BoundToColumn>
+               <ColumnTableAlias>zwmparms</ColumnTableAlias>
+               <PropertyAttributes>
+                  <ColumnDataType>FlagNyType</ColumnDataType>
+                  <DataType>Byte</DataType>
                </PropertyAttributes>
             </Property>
             <Property Name="grn_prefix" Key="0" Binding="BOUND" Sequence="3">

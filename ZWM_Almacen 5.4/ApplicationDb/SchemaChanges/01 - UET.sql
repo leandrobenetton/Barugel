@@ -2228,3 +2228,5 @@ IF NOT EXISTS(Select 1 from table_class where table_name = N'trnitem_mst' AND cl
 							,         0
 							,         1
 							) 
+
+-----------------------------------------------------------------------------------------------

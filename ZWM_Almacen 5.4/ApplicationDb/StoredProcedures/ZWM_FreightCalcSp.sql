@@ -1,14 +1,15 @@
-/****** Object:  StoredProcedure [dbo].[ZWM_FreightCalcSp]    Script Date: 11/07/2014 13:23:56 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_FreightCalcSp]    Script Date: 02/06/2015 11:31:15 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ZWM_FreightCalcSp]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[ZWM_FreightCalcSp]
 GO
 
-/****** Object:  StoredProcedure [dbo].[ZWM_FreightCalcSp]    Script Date: 11/07/2014 13:23:56 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_FreightCalcSp]    Script Date: 02/06/2015 11:31:15 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[ZWM_FreightCalcSp]
 (
@@ -61,6 +62,8 @@ DECLARE
 --
 , @ZCurr				CurrCodeType
 , @ZSystemCurr			CurrCodeType
+--
+, @ZWMParmsAcumDueDate	FlagNyType
 
 DECLARE
  @Severity int
@@ -79,8 +82,11 @@ SET @TotalFreight = 0
 
 SELECT  @ZWMParmsVolWeightUm	= um_weight	
 		, @ZWMParmsRowPointer= RowPointer		
+		, @ZWMParmsAcumDueDate = FreightCalcAcumDueDate
 	FROM zwm_parms
 	WHERE parm_key = 0 
+
+SET @ZWMParmsAcumDueDate = ISNULL(@ZWMParmsAcumDueDate,0)
 
 SELECT @ZSystemCurr = curr_code from currparms
 
@@ -93,7 +99,7 @@ SELECT distinct co.co_num
 		, coi.cust_num
 		, coi.cust_seq
 		, coi.zwm_ship_code
-		, coi.due_date
+		, case @ZWMParmsAcumDueDate When 0 Then coi.due_date else GetDate() end
 FROM coitem coi
 INNER JOIN co_mst co ON coi.co_num = co.co_num
 WHERE co.co_num = @pCoNum
@@ -105,7 +111,7 @@ WHERE co.co_num = @pCoNum
 		, coi.cust_num
 		, coi.cust_seq
 		, coi.zwm_ship_code
-		, coi.due_date
+		, case @ZWMParmsAcumDueDate When 0 Then coi.due_date else GetDate() end
 
 OPEN FrtCur
 
@@ -162,8 +168,8 @@ BEGIN
 							AND ISNULL(coi.cust_num,'')= ISNULL(@CoItemCustNum,'')
 							AND ISNULL(coi.cust_seq,0) = ISNULL(@CoItemCustSeq,0)
 							AND ISNULL(coi.zwm_ship_code,'') = ISNULL(@CoItemZwmShipCode,'')
-							AND ISNULL(coi.due_date,dbo.LowDate()) = IsNULL(@CoItemDueDate,dbo.LowDate())
-							
+							AND (ISNULL(coi.due_date,dbo.LowDate()) = IsNULL(@CoItemDueDate,dbo.LowDate()) OR @ZWMParmsAcumDueDate = 1)
+					
 							
 						OPEN FrtItemCur 
 						
@@ -314,4 +320,7 @@ ELSE
 	SET @pFreightAmount = @TotalFreight
 
 RETURN @Severity
+
 GO
+
+

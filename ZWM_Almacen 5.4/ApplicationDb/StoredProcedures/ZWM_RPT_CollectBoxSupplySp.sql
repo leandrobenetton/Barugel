@@ -1,9 +1,9 @@
-/****** Object:  StoredProcedure [dbo].[ZWM_RPT_CollectBoxSupplySp]    Script Date: 01/09/2015 14:57:18 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_RPT_CollectBoxSupplySp]    Script Date: 01/29/2015 12:24:53 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ZWM_RPT_CollectBoxSupplySp]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[ZWM_RPT_CollectBoxSupplySp]
 GO
 
-/****** Object:  StoredProcedure [dbo].[ZWM_RPT_CollectBoxSupplySp]    Script Date: 01/09/2015 14:57:18 ******/
+/****** Object:  StoredProcedure [dbo].[ZWM_RPT_CollectBoxSupplySp]    Script Date: 01/29/2015 12:24:53 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,31 +11,32 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-
 CREATE PROCEDURE [dbo].[ZWM_RPT_CollectBoxSupplySp]
 (
- @RefTypeOpt				nvarchar(4) = 'ROPT'
-,@UmStocked					UmType = 'I'
+ @RefTypeOpt			nvarchar(4)	= 'ROPT'
+,@UmStocked				UmType = 'I'
 ,@DisplayHeader			FlagNyType = 0
-,@WhseStarting				WhseType = NULL
-,@WhseEnding				WhseType = NULL
-,@ItemStarting				ItemType	= NULL
-,@ItemEnding				ItemType = NULL
+,@WhseStarting			WhseType = NULL
+,@WhseEnding			WhseType = NULL
+,@ItemStarting			ItemType	= NULL
+,@ItemEnding			ItemType = NULL
 ,@ProductCodeStarting	ProductCodeType = NULL
 ,@ProductCodeEnding		ProductCodeType = NULL
-,@FamilyCodeStarting		FamilyCodeType  = NULL
+,@FamilyCodeStarting	FamilyCodeType  = NULL
 ,@FamilyCodeEnding		FamilyCodeType  = NULL
-,@OrderStarting			CoNumType		 = NULL
-,@OrderEnding				CoNumType		 = NULL
-,@DueDateStarting			DateType			 = NULL
-,@DueDateEnding			DateType			 = NULL
-,@PickListStarting		PickListIdType	 = NULL
-,@PickListEnding			PickListIdType	 = NULL
-,@TrnNumStarting			TrnNumType		 = NULL
-,@TrnNumEnding				TrnNumType		 = NULL
-,@SchShipDateStarting	DateType			 = NULL
-,@SchShipDateEnding		DateType			 = NULL
-,@Post						FlagNyType		 = 0
+,@OrderStarting			CoNumType = NULL
+,@OrderEnding			CoNumType = NULL
+,@DueDateStarting		DateType = NULL
+,@DueDateEnding			DateType = NULL
+,@PickListStarting		PickListIdType = NULL
+,@PickListEnding		PickListIdType = NULL
+,@RouteStarting			ZWMIDRouteMapType = NULL
+,@RouteEnding			ZWMIDRouteMapType = NULL
+,@TrnNumStarting		TrnNumType = NULL
+,@TrnNumEnding			TrnNumType = NULL
+,@SchShipDateStarting	DateType = NULL
+,@SchShipDateEnding		DateType = NULL
+,@Post					FlagNyType = 0
 )
 AS 
 
@@ -85,16 +86,19 @@ SET @FamilyCodeStarting		= ISNULL(@FamilyCodeStarting,@LowCharacter)
 SET @FamilyCodeEnding		= ISNULL(@FamilyCodeEnding,@HighCharacter)
 
 SET @OrderStarting			= ISNULL(dbo.ExpandKyByType('CoNumType',@OrderStarting),@LowCharacter)
-SET @OrderEnding				= ISNULL(dbo.ExpandKyByType('CoNumType',@OrderEnding),@HighCharacter)
+SET @OrderEnding			= ISNULL(dbo.ExpandKyByType('CoNumType',@OrderEnding),@HighCharacter)
 
-SET @DueDateStarting			= ISNULL(@DueDateStarting,@LowDate )		
+SET @DueDateStarting		= ISNULL(@DueDateStarting,@LowDate )		
 SET @DueDateEnding			= ISNULL(@DueDateEnding,@HighDate )	
 	
 SET @PickListStarting		= ISNULL(@PickListStarting,0)	
 SET @PickListEnding			= ISNULL(@PickListEnding,9999999)	
 
+SET @RouteStarting			= ISNULL(@PickListStarting,@LowCharacter)	
+SET @RouteEnding			= ISNULL(@PickListEnding,@HighCharacter)	
+
 SET @TrnNumStarting			= ISNULL(dbo.ExpandKyByType('TrnNumType',@TrnNumStarting),@LowCharacter)
-SET @TrnNumEnding				= ISNULL(dbo.ExpandKyByType('TrnNumType',@TrnNumEnding),@HighCharacter)
+SET @TrnNumEnding			= ISNULL(dbo.ExpandKyByType('TrnNumType',@TrnNumEnding),@HighCharacter)
 
 SET @SchShipDateStarting	= ISNULL(@SchShipDateStarting,@LowDate )			
 SET @SchShipDateEnding		= ISNULL(@SchShipDateEnding,@HighDate )	
@@ -104,38 +108,39 @@ DECLARE
   @CBItemItem				ItemType
 , @CBItemWhse				WhseType
 , @CBItemLoc				LocType
-, @CBItemLocDescription DescriptionType 
-, @CBItemReorderQty		QtyUnitType
-, @CBItemMinQty			QtyUnitType
-, @CBItemRowpointer	RowPointerType
-, @ItemDescription	DescriptionType
-, @ItemUM				UMType
-, @ItemProductCode	ProductCodeType
-, @ItemFamilyCode		FamilyCodeType
-, @ItemReservable		ListYesNoType
-, @ItemSerialTracked	ListYesNoType
-, @ItemLotTracked		ListYesNoType
-, @ItemUfUMStock1		UMType
-, @ItemUfUMStock2		UMType
-, @LocLoc				LocType
-, @LocDescription		DescriptionType
-, @LocLot				LotType
-, @LocQtyOnHand		QtyUnitType
-, @LocQtyRsvd			QtyUnitType
-, @LocUfZone			DescriptionType
-, @LocUfColBox			FlagNyType
+, @CBItemLocDescription		DescriptionType 
+, @CBItemReorderQty			QtyUnitType
+, @CBItemMinQty				QtyUnitType
+, @CBItemRowpointer			RowPointerType
+, @ItemDescription			DescriptionType
+, @ItemUM					UMType
+, @ItemProductCode			ProductCodeType
+, @ItemFamilyCode			FamilyCodeType
+, @ItemReservable			ListYesNoType
+, @ItemSerialTracked		ListYesNoType
+, @ItemLotTracked			ListYesNoType
+, @ItemUfUMStock1			UMType
+, @ItemUfUMStock2			UMType
+, @LocLoc					LocType
+, @LocDescription			DescriptionType
+, @LocLot					LotType
+, @LocQtyOnHand				QtyUnitType
+, @LocQtyRsvd				QtyUnitType
+, @LocQtyFixRsvd			QtyUnitType
+, @LocUfZone				DescriptionType
+, @LocUfColBox				FlagNyType
 --
-, @CBItemRefType		RefTypeIJKPRTType
-, @CBItemRefNum		JobPoProjReqTrnNumType
-, @CBItemRefLineSuf	SuffixPoLineProjTaskReqTrnLineType
-, @CBItemRefRelease	OperNumPoReleaseType
-, @CBItemDueDate		DateType
-, @CBItemQtyReq		QtyUnitNoNegType
-, @CBItemQtyReqConv	QtyUnitNoNegType
-, @CBItemUm				UmType
-, @ReqItemUm					UmType
-, @CBUmConvFactor		UmConvFactorType
-, @Infobar				InfobarType
+, @CBItemRefType			RefTypeIJKPRTType
+, @CBItemRefNum				JobPoProjReqTrnNumType
+, @CBItemRefLineSuf			SuffixPoLineProjTaskReqTrnLineType
+, @CBItemRefRelease			OperNumPoReleaseType
+, @CBItemDueDate			DateType
+, @CBItemQtyReq				QtyUnitNoNegType
+, @CBItemQtyReqConv			QtyUnitNoNegType
+, @CBItemUm					UmType
+, @ReqItemUm				UmType
+, @CBUmConvFactor			UmConvFactorType
+, @Infobar					InfobarType
 
 -- invpams
 DECLARE 
@@ -241,11 +246,9 @@ IF Charindex( 'R', @RefTypeOpt ) > 0
 					FROM Zwm_Item_Col_Box Itc 
 					INNER JOIN item it on it.item = itc.item
 					WHERE itc.Item BETWEEN @ItemStarting  AND @ItemEnding
-					  AND Whse BETWEEN @WhseStarting  AND @WhseEnding
+					  AND itc.Whse BETWEEN @WhseStarting  AND @WhseEnding
 						AND ISNULL(it.product_code,'') BETWEEN @ProductCodeStarting AND @ProductCodeEnding
 						AND ISNULL(it.family_code,'') BETWEEN  @FamilyCodeStarting AND @FamilyCodeEnding 
- 
-
 	 END
 
 -- Customer Order	
@@ -279,7 +282,7 @@ IF Charindex( 'O', @RefTypeOpt ) > 0
 			, coi.co_line
 			, coi.co_release
 			, coi.due_date 
-			, coi.qty_ordered  
+			, Coi.qty_ordered - Coi.qty_shipped
 			, it.u_m 
 					FROM Zwm_Item_Col_Box Itc
 					INNER JOIN item it on it.item = itc.item
@@ -290,62 +293,8 @@ IF Charindex( 'O', @RefTypeOpt ) > 0
 						AND ISNULL(it.family_code,'') BETWEEN  @FamilyCodeStarting AND @FamilyCodeEnding 
 					  AND Coi.Co_Num BETWEEN @OrderStarting AND @OrderEnding
 					  AND Coi.Due_Date BETWEEN @DueDateStarting AND @DueDateEnding
+					  AND Coi.qty_ordered > Coi.qty_shipped
 	END	
-	
--- Pick LIST Customer Order
-IF Charindex( 'P', @RefTypeOpt ) > 0
-	 BEGIN
-
-		  INSERT INTO #CBItemRequirement(
-			  CBItemItem
-			, CBItemWhse
-			, CBItemLoc
-			, CBItemReorderQty
-			, CBItemMinQty
-			, Rowpointer
-			, CBItemRefType 
-			, CBItemRefNum		
-			, CBItemRefLineSuf	
-			, CBItemRefRelease
-			, CBItemDueDate	
-			, CBItemQtyReq
-			, CBItemUm 
-			 )
-		  SELECT
-			  Itc.Item
-			, Itc.Whse
-			, Itc.Loc
-			, Itc.Reorder_Qty
-			, Itc.Min_Qty
-			, Itc.RowPointer
-			, 'P'
-			, pcki.ref_num
-			, pcki.ref_line_suf 
-			, pcki.ref_release 
-			, coi.due_date 
-			, pcki.qty_to_pick - pcki.qty_picked 
-			, it.u_m 
-					FROM Zwm_Item_Col_Box Itc
-					INNER JOIN item it on it.item = itc.item
-					INNER JOIN coitem coi on coi.item = itc.item AND coi.whse = coi.whse 
-					INNER JOIN pick_list_ref  pcki ON pcki.ref_num  = coi.co_num 
-															AND pcki.ref_line_suf = coi.ref_line_suf
-															AND pcki.ref_release = coi.ref_release
-															AND NOT EXISTS(SELECT 1 FROM #CBItemRequirement itr
-																					WHERE itr.ref_type = 'O'
-																					AND itr.ref_num = pcki.ref_num
-																					AND itr.ref_line_suf = pcki.ref_line_suf
-																					AND itr.ref_release = pcki.ref_release )
-					INNER JOIN pick_list pckh ON pckh.pick_list_id = pcki.pick_list_id 
-					
-					WHERE Itc.Item BETWEEN @ItemStarting AND @ItemEnding
-					  AND Itc.Whse BETWEEN @ItemStarting AND @ItemEnding
-						AND ISNULL(it.product_code,'') BETWEEN @ProductCodeStarting AND @ProductCodeEnding
-						AND ISNULL(it.family_code,'') BETWEEN  @FamilyCodeStarting AND @FamilyCodeEnding 
-					  AND pcki.qty_to_pick > pcki.qty_picked			-- Solo lineas pendientes
-					  AND pckh.status = 'O' -- Solo Open
-					   
-	 END	
 	
 -- Transfer Orders
 IF Charindex( 'T', @RefTypeOpt ) > 0
@@ -384,12 +333,123 @@ IF Charindex( 'T', @RefTypeOpt ) > 0
 					INNER JOIN item it on it.item = itc.item
 					INNER JOIN trnitem trni on trni.item = itc.item AND trni.from_whse = itc.whse 
 					WHERE Itc.Item BETWEEN @ItemStarting AND @ItemEnding
-					  AND Itc.Whse BETWEEN @ItemStarting AND @ItemEnding
+					  AND Itc.Whse BETWEEN @WhseStarting AND @WhseEnding
 					  AND it.product_code BETWEEN @ProductCodeStarting AND @ProductCodeEnding
 					  AND it.family_code BETWEEN  @FamilyCodeStarting AND @FamilyCodeEnding 
 					  AND trni.trn_num  BETWEEN @TrnNumStarting  AND @TrnNumEnding 
 					  AND trni.sch_ship_date BETWEEN @SchShipDateStarting  AND @SchShipDateEnding 
-					  AND trni.qty_req >= trni.qty_received		-- Transfer no embarcadas
+					  AND trni.qty_req > trni.qty_received		-- Transfer no embarcadas
+	 END	
+	
+-- Pick LIST Customer Order
+IF Charindex( 'P', @RefTypeOpt ) > 0
+	 BEGIN
+
+		  INSERT INTO #CBItemRequirement(
+			  CBItemItem
+			, CBItemWhse
+			, CBItemLoc
+			, CBItemReorderQty
+			, CBItemMinQty
+			, Rowpointer
+			, CBItemRefType 
+			, CBItemRefNum		
+			, CBItemRefLineSuf	
+			, CBItemRefRelease
+			, CBItemDueDate	
+			, CBItemQtyReq
+			, CBItemUm 
+			 )
+		  SELECT
+			  Itc.Item
+			, Itc.Whse
+			, Itc.Loc
+			, Itc.Reorder_Qty
+			, Itc.Min_Qty
+			, Itc.RowPointer
+			, 'P'
+			, pcki.ref_num
+			, pcki.ref_line_suf 
+			, pcki.ref_release 
+			, coi.due_date 
+			, pcki.qty_to_pick - pcki.qty_picked 
+			, it.u_m 
+					FROM Zwm_Item_Col_Box Itc
+					INNER JOIN item it on it.item = itc.item
+					INNER JOIN coitem coi on coi.item = itc.item
+					INNER JOIN pick_list_ref  pcki ON pcki.ref_num  = coi.co_num 
+															AND pcki.ref_line_suf = coi.ref_line_suf
+															AND pcki.ref_release = coi.ref_release
+															AND NOT EXISTS(SELECT 1 FROM #CBItemRequirement itr
+																					WHERE itr.CBItemRefType = 'O'
+																					AND itr.CBItemRefNum = pcki.ref_num
+																					AND itr.CBItemRefLineSuf = pcki.ref_line_suf
+																					AND itr.CBItemRefRelease = pcki.ref_release )
+					INNER JOIN pick_list pckh ON pckh.pick_list_id = pcki.pick_list_id and itc.whse = pckh.whse
+					WHERE Itc.Item BETWEEN @ItemStarting AND @ItemEnding
+					  AND Itc.Whse BETWEEN @WhseStarting AND @WhseEnding
+						AND ISNULL(it.product_code,'') BETWEEN @ProductCodeStarting AND @ProductCodeEnding
+						AND ISNULL(it.family_code,'') BETWEEN  @FamilyCodeStarting AND @FamilyCodeEnding 
+					  AND pckh.pick_list_id BETWEEN @PickListStarting AND @PickListEnding
+					  AND pckh.ZWM_IdRouteMap BETWEEN @RouteStarting AND @RouteEnding
+					  AND pcki.qty_to_pick > pcki.qty_picked			-- Solo lineas pendientes
+					  AND pckh.status = 'O' -- Solo Open					   
+	 END	
+
+
+-- Pick LIST Transfer Order
+IF Charindex( 'P', @RefTypeOpt ) > 0
+	 BEGIN
+
+		  INSERT INTO #CBItemRequirement(
+			  CBItemItem
+			, CBItemWhse
+			, CBItemLoc
+			, CBItemReorderQty
+			, CBItemMinQty
+			, Rowpointer
+			, CBItemRefType 
+			, CBItemRefNum		
+			, CBItemRefLineSuf	
+			, CBItemRefRelease
+			, CBItemDueDate	
+			, CBItemQtyReq
+			, CBItemUm 
+			 )
+		  SELECT
+			  Itc.Item
+			, Itc.Whse
+			, Itc.Loc
+			, Itc.Reorder_Qty
+			, Itc.Min_Qty
+			, Itc.RowPointer
+			, 'P'
+			, pcki.ref_num
+			, pcki.ref_line_suf 
+			, pcki.ref_release 
+			, trni.sch_ship_date 
+			, pcki.qty_to_pick - pcki.qty_picked 
+			, it.u_m 
+					FROM Zwm_Item_Col_Box Itc
+					INNER JOIN item it on it.item = itc.item
+					INNER JOIN trnitem trni on trni.item = itc.item
+					INNER JOIN pick_list_ref  pcki ON pcki.ref_num  = trni.trn_num 
+															AND pcki.ref_line_suf = trni.trn_line
+															AND pcki.ref_release = 0
+															AND NOT EXISTS(SELECT 1 FROM #CBItemRequirement itr
+																					WHERE itr.CBItemRefType = 'T'
+																					AND itr.CBItemRefNum = pcki.ref_num
+																					AND itr.CBItemRefLineSuf = pcki.ref_line_suf
+																					AND itr.CBItemRefRelease = pcki.ref_release )
+					INNER JOIN pick_list pckh ON pckh.pick_list_id = pcki.pick_list_id and itc.whse = pckh.whse
+					WHERE Itc.Item BETWEEN @ItemStarting AND @ItemEnding
+					  AND Itc.Whse BETWEEN @WhseStarting AND @WhseEnding
+						AND ISNULL(it.product_code,'') BETWEEN @ProductCodeStarting AND @ProductCodeEnding
+						AND ISNULL(it.family_code,'') BETWEEN  @FamilyCodeStarting AND @FamilyCodeEnding 
+					  AND pckh.pick_list_id BETWEEN @PickListStarting AND @PickListEnding
+					  AND pckh.ZWM_IdRouteMap BETWEEN @RouteStarting AND @RouteEnding
+					  AND pcki.qty_to_pick > pcki.qty_picked			-- Solo lineas pendientes
+					  AND pckh.status = 'O' -- Solo Open					   
 	 END	
 	
 
@@ -449,51 +509,43 @@ BEGIN
 				WHERE item = @CBItemItem 
 
 			-- Obtener los datos del inventario de la localización de CB
-				IF @ItemLotTracked = 0
+			SELECT	
+			   @CBItemLocDescription = loc.description
+			 , @locQtyOnHand = Qty_On_Hand
+			 , @LocQtyRsvd = Qty_Rsvd
+			 , @LocUfZone = loc.ZWM_Zone 
+			FROM Itemloc itl
+			INNER JOIN location loc on loc.loc = itl.loc 
+			WHERE itl.Item = @CBItemItem
+			AND itl.Whse = @CBItemWhse
+			AND itl.Loc = @CBItemLoc  
+
+			IF @ItemLotTracked = 1
+			BEGIN	
+				IF (Select count(lot) from lot_loc itlx where itlx.Item = @CBItemItem and itlx.Whse = @CBItemWhse and itlx.Loc = @CBItemLoc and itlx.qty_on_hand > 0) > 1
 				BEGIN
-				SELECT
-					
-				   @CBItemLocDescription = loc.description
-				 , @locQtyOnHand = Qty_On_Hand
-				 , @LocQtyRsvd = Qty_Rsvd
-				 , @LocUfZone = loc.ZWM_Zone 
-						 FROM Itemloc itl
-						 INNER JOIN location loc on loc.loc = itl.loc 
-						 WHERE itl.Item = @CBItemItem
-							AND itl.Whse = @CBItemWhse
-							AND itl.Loc = @CBItemLoc  
+					SET @LocLot = 'VARIOS'				
 				END
 				ELSE
 				BEGIN
-				SELECT TOP 1
-					
-				   @LocLot = itl.lot
-				 , @CBItemLocDescription = loc.description
-				 , @locQtyOnHand = Qty_On_Hand
-				 , @LocQtyRsvd = Qty_Rsvd
-				 , @LocUfZone = loc.ZWM_Zone 
-						 FROM lot_loc itl
-						 INNER JOIN location loc on loc.loc = itl.loc 
-						 WHERE itl.Item = @CBItemItem
-							AND itl.Whse = @CBItemWhse
-							AND itl.Loc = @CBItemLoc  
-
+					Select Top 1 @LocLot = lot from lot_loc itlx where itlx.Item = @CBItemItem and itlx.Whse = @CBItemWhse and itlx.Loc = @CBItemLoc and itlx.qty_on_hand > 0
 				END
+			END
 							
-				-- Determina la Um a mostrar
-				SET @ReqItemUm = CASE 
-										WHEN @UmStocked = 'I'
-											THEN @ItemUM 
+			-- Determina la Um a mostrar
+			SET @ReqItemUm = CASE 
+									WHEN @UmStocked = 'I'
+										THEN @ItemUM 
 											
-										WHEN @UmStocked = '1'
-											THEN @ItemUfUMStock1 
+									WHEN @UmStocked = '1'
+										THEN @ItemUfUMStock1 
 											
-										WHEN @UmStocked = 2 
-											THEN @ItemUfUMStock2
-									END
+									WHEN @UmStocked = 2 
+										THEN @ItemUfUMStock2
+							END
+								
 									
-									
-					SET @infobar = NULL																		
+			SET @infobar = NULL																		
 					-- Comprar Req UM, vs Item Um
 					IF @ReqItemUm <> @ItemUm
 					BEGIN
@@ -610,9 +662,6 @@ BEGIN
 						, @Infobar	
 						)								  
 			
-			
-				
-
 END
 CLOSE CBItemCur
 DEALLOCATE CBItemCur
@@ -685,8 +734,7 @@ BEGIN
 			, @LocLot				
 			, @LocQtyOnHand		
 			, @LocQtyRsvd			
-	 			
-			
+	 						
 			IF @@FETCH_STATUS <> 0
 				BREAK
 				
@@ -759,16 +807,15 @@ BEGIN
 						, @LocQtyOnHand		
 						, @LocQtyRsvd			
 						, @Infobar	
-						)								
-
-
+						)							
 END
 CLOSE ItemLocCur
 DEALLOCATE ItemLocCur
 
 IF @Post = 1
 BEGIN
-
+	DELETE from zwm_mvtran_mst
+	
 	INSERT INTO zwm_mvtran
 	(
 	    [whse]
@@ -825,7 +872,7 @@ BEGIN
 				,req.ReqQtyReqConv
 				,req.ReqUm
 			FROM #RptSetReq req
-			WHERE ISNULL(req.ref_type,'') <> 'L' 
+			WHERE ISNULL(req.ReqRefType,'') <> 'L' 
 	
  
 END
@@ -840,7 +887,6 @@ COMMIT TRANSACTION
 
 
 EXEC CloseSessionContextSp @SessionID = @RptSessionID
-
 
 GO
 
